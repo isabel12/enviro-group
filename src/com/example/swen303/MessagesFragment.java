@@ -6,9 +6,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-public class StatisticsFragment2 extends Fragment {
+public class MessagesFragment extends Fragment {
 	
+	private int unreadMessages = 0;
+	
+	private HomeActivity container;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -30,10 +34,28 @@ public class StatisticsFragment2 extends Fragment {
             return null;
         }	
 		
+        this.container = (HomeActivity)container.getContext();
 		
-		return inflater.inflate(R.layout.fragment_statistics, container, false);	
+        View view = inflater.inflate(R.layout.fragment_messages, container, false);	
+        
+        
+        TextView text = (TextView) view.findViewById(R.id.no_messages_text);
+        if(this.unreadMessages != 0){
+        	text.setVisibility(View.GONE);
+        } else {
+        	text.setVisibility(View.VISIBLE);
+        }
+        
+        
+		return view;	
+		
+		
 	}
 	
+		
 	
+	public int GetNumberOfUnreadMessages(){
+		return unreadMessages;
+	}
 
 }
