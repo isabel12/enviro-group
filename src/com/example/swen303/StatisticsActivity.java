@@ -109,97 +109,79 @@ public class StatisticsActivity extends FragmentActivity implements
 	}
 	
 	
-	public void changeProgressToWeekView(View view){		
-		changeProgressToWeekView();
+	public void changeToWeekView(View view){		
+		changeToWeekView();
 	}
 	
 	
-	public void changeProgressToWeekView(){	
+	public void changeToWeekView(){	
 		// get title
 		TextView title = (TextView)findViewById(R.id.progress_graph_title);
 		title.setText("Weekly points");
 			
 		// get image
-		ImageView image = (ImageView)findViewById(R.id.progress_graph_image);
+		ImageView image = (ImageView)findViewById(R.id.total_graph_image);
+		image.setImageDrawable(getResources().getDrawable(R.drawable.week_total));
+		
+		
+		// get title
+		title = (TextView)findViewById(R.id.progress_graph_title);
+		title.setText("Weekly points");
+			
+		// get image
+		image = (ImageView)findViewById(R.id.progress_graph_image);
 		image.setImageDrawable(getResources().getDrawable(R.drawable.week_progress));			
 	}
 	
 	
 	
-	public void changeProgressToMonthView(View view){
-		changeProgressToMonthView();
+	public void changeToMonthView(View view){
+		changeToMonthView();
 	}
 	
-	public void changeProgressToMonthView(){
+	public void changeToMonthView(){
 						
 		// get title
 		TextView title = (TextView)findViewById(R.id.progress_graph_title);
 		title.setText("Monthly points");
 			
-		// get image
-		ImageView image = (ImageView)findViewById(R.id.progress_graph_image);
-		image.setImageDrawable(getResources().getDrawable(R.drawable.month_progress));
-		
-	}
-	
-	public void changeProgressTo3MonthView(View view){
-		changeProgressTo3MonthView();
-	}
-	
-	public void changeProgressTo3MonthView(){
-		
-	}
-	
-	
-	
-	public void changeTotalToWeekView(View view){		
-		changeProgressToWeekView();
-	}
-	
-	
-	public void changeTotalToWeekView(){	
 		// get title
-		TextView title = (TextView)findViewById(R.id.progress_graph_title);
-		title.setText("Weekly points");
-			
-		// get image
-		ImageView image = (ImageView)findViewById(R.id.total_graph_image);
-		image.setImageDrawable(getResources().getDrawable(R.drawable.week_total));			
-	}
-	
-	
-	
-	public void changeTotalToMonthView(View view){
-		changeProgressToMonthView();
-	}
-	
-	public void changeTotalToMonthView(){
-						
-		// get title
-		TextView title = (TextView)findViewById(R.id.total_graph_title);
+		title = (TextView)findViewById(R.id.total_graph_title);
 		title.setText("Monthly points");
 			
 		// get image
 		ImageView image = (ImageView)findViewById(R.id.total_graph_image);
 		image.setImageDrawable(getResources().getDrawable(R.drawable.month_total));
-	}
-	
-	public void changeTotalTo3MonthView(View view){
-		changeProgressTo3MonthView();
-	}
-	
-	public void changeTotalTo3MonthView(){
+			
+		// get image
+		image = (ImageView)findViewById(R.id.progress_graph_image);
+		image.setImageDrawable(getResources().getDrawable(R.drawable.month_progress));
 		
 	}
 	
+	public void changeTo3MonthView(View view){
+		changeTo3MonthView();
+	}
 	
+	public void changeTo3MonthView(){
+		// get title
+		TextView title = (TextView)findViewById(R.id.progress_graph_title);
+		title.setText("Tri-Monthly points");
+			
+		// get title
+		title = (TextView)findViewById(R.id.total_graph_title);
+		title.setText("Tri-Monthly points");
+			
+		// get image
+		ImageView image = (ImageView)findViewById(R.id.total_graph_image);
+		image.setImageDrawable(getResources().getDrawable(R.drawable.month_3_total));
+			
+		// get image
+		image = (ImageView)findViewById(R.id.progress_graph_image);
+		image.setImageDrawable(getResources().getDrawable(R.drawable.month_3_progress));
+	}
 	
-	
-	
-	
-	
-	
-	
+			
 	@Override
 	public void onTabSelected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
@@ -310,7 +292,15 @@ public class StatisticsActivity extends FragmentActivity implements
 			                monthButton.setPressed(false);
 			                month3Button.setPressed(false);
 			                
-			                activity.changeTotalToWeekView();
+			            	weekButton = (Button) activity.findViewById(R.id.progress_week_button);
+			            	monthButton = (Button) activity.findViewById(R.id.progress_month_button);
+			            	month3Button = (Button) activity.findViewById(R.id.progress_month_3_button);
+			            	
+			                weekButton.setPressed(true);
+			                monthButton.setPressed(false);
+			                month3Button.setPressed(false);			                			                
+			                
+			                activity.changeToWeekView();
 			                
 			                return true;
 			            }
@@ -329,7 +319,15 @@ public class StatisticsActivity extends FragmentActivity implements
 			                monthButton.setPressed(true);
 			                month3Button.setPressed(false);
 			                
-			                activity.changeTotalToMonthView();
+			            	weekButton = (Button) activity.findViewById(R.id.progress_week_button);
+			            	monthButton = (Button) activity.findViewById(R.id.progress_month_button);
+			            	month3Button = (Button) activity.findViewById(R.id.progress_month_3_button);
+			            	
+			                weekButton.setPressed(false);
+			                monthButton.setPressed(true);
+			                month3Button.setPressed(false);		
+			                
+			                activity.changeToMonthView();
 			                
 			                return true;
 			            }
@@ -349,7 +347,15 @@ public class StatisticsActivity extends FragmentActivity implements
 			                monthButton.setPressed(false);
 			                month3Button.setPressed(true);
 			                
-			                activity.changeTotalTo3MonthView();
+			            	weekButton = (Button) activity.findViewById(R.id.progress_week_button);
+			            	monthButton = (Button) activity.findViewById(R.id.progress_month_button);
+			            	month3Button = (Button) activity.findViewById(R.id.progress_month_3_button);
+			            	
+			                weekButton.setPressed(false);
+			                monthButton.setPressed(false);
+			                month3Button.setPressed(true);		
+			                
+			                activity.changeTo3MonthView();
 			                
 			                return true;
 			            }
@@ -369,16 +375,24 @@ public class StatisticsActivity extends FragmentActivity implements
 					            @Override
 					            public boolean onTouch(View v, MotionEvent event) {
 					            	StatisticsActivity activity = (StatisticsActivity) v.getContext();
-               	
-					            	Button weekButton = (Button) activity.findViewById(R.id.progress_week_button);
-					            	Button monthButton = (Button) activity.findViewById(R.id.progress_month_button);
-					            	Button month3Button = (Button) activity.findViewById(R.id.progress_month_3_button);
+					               	
+					            	Button weekButton = (Button) activity.findViewById(R.id.total_week_button);
+					            	Button monthButton = (Button) activity.findViewById(R.id.total_month_button);
+					            	Button month3Button = (Button) activity.findViewById(R.id.total_month_3_button);
 					            	
 					                weekButton.setPressed(true);
 					                monthButton.setPressed(false);
 					                month3Button.setPressed(false);
 					                
-					                activity.changeProgressToWeekView();
+					            	weekButton = (Button) activity.findViewById(R.id.progress_week_button);
+					            	monthButton = (Button) activity.findViewById(R.id.progress_month_button);
+					            	month3Button = (Button) activity.findViewById(R.id.progress_month_3_button);
+					            	
+					                weekButton.setPressed(true);
+					                monthButton.setPressed(false);
+					                month3Button.setPressed(false);			                			                
+					                
+					                activity.changeToWeekView();
 					                
 					                return true;
 					            }
@@ -388,16 +402,24 @@ public class StatisticsActivity extends FragmentActivity implements
 			            @Override
 			            public boolean onTouch(View v, MotionEvent event) {
 			            	StatisticsActivity activity = (StatisticsActivity) v.getContext();
-       	
-			            	Button weekButton = (Button) activity.findViewById(R.id.progress_week_button);
-			            	Button monthButton = (Button) activity.findViewById(R.id.progress_month_button);
-			            	Button month3Button = (Button) activity.findViewById(R.id.progress_month_3_button);
+			    			
+			            	Button weekButton = (Button) activity.findViewById(R.id.total_week_button);
+			            	Button monthButton = (Button) activity.findViewById(R.id.total_month_button);
+			            	Button month3Button = (Button) activity.findViewById(R.id.total_month_3_button);
 			            	
 			                weekButton.setPressed(false);
 			                monthButton.setPressed(true);
 			                month3Button.setPressed(false);
 			                
-			                activity.changeProgressToMonthView();
+			            	weekButton = (Button) activity.findViewById(R.id.progress_week_button);
+			            	monthButton = (Button) activity.findViewById(R.id.progress_month_button);
+			            	month3Button = (Button) activity.findViewById(R.id.progress_month_3_button);
+			            	
+			                weekButton.setPressed(false);
+			                monthButton.setPressed(true);
+			                month3Button.setPressed(false);		
+			                
+			                activity.changeToMonthView();
 			                
 			                return true;
 			            }
@@ -408,16 +430,24 @@ public class StatisticsActivity extends FragmentActivity implements
 			            @Override
 			            public boolean onTouch(View v, MotionEvent event) {
 			            	StatisticsActivity activity = (StatisticsActivity) v.getContext();
-       	
-			            	Button weekButton = (Button) activity.findViewById(R.id.progress_week_button);
-			            	Button monthButton = (Button) activity.findViewById(R.id.progress_month_button);
-			            	Button month3Button = (Button) activity.findViewById(R.id.progress_month_3_button);
+			    			
+			            	Button weekButton = (Button) activity.findViewById(R.id.total_week_button);
+			            	Button monthButton = (Button) activity.findViewById(R.id.total_month_button);
+			            	Button month3Button = (Button) activity.findViewById(R.id.total_month_3_button);
 			            	
 			                weekButton.setPressed(false);
 			                monthButton.setPressed(false);
 			                month3Button.setPressed(true);
 			                
-			                activity.changeProgressTo3MonthView();
+			            	weekButton = (Button) activity.findViewById(R.id.progress_week_button);
+			            	monthButton = (Button) activity.findViewById(R.id.progress_month_button);
+			            	month3Button = (Button) activity.findViewById(R.id.progress_month_3_button);
+			            	
+			                weekButton.setPressed(false);
+			                monthButton.setPressed(false);
+			                month3Button.setPressed(true);		
+			                
+			                activity.changeTo3MonthView();
 			                
 			                return true;
 			            }

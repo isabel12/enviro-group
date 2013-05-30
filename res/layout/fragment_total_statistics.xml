@@ -17,7 +17,7 @@
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content"
 	        android:text="Week" 
-	        android:onClick="changeTotalToWeekView"/>
+	        android:onClick="changeToWeekView"/>
         
         <Button
 	        android:id="@+id/total_month_button"
@@ -25,7 +25,7 @@
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content"
 	        android:text="Month" 
-	        android:onClick="changeTotalToMonthView"/>
+	        android:onClick="changeToMonthView"/>
         
         <Button
 	        android:id="@+id/total_month_3_button"
@@ -33,7 +33,7 @@
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content"
 	        android:text="3 Month" 
-	        android:onClick="changeTotalTo3MonthView"/>     
+	        android:onClick="changeTo3MonthView"/>     
     </LinearLayout>
 
     <TextView

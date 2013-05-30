@@ -17,7 +17,7 @@
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content"
 	        android:text="Week" 
-	        android:onClick="changeProgressToWeekView"/>
+	        android:onClick="changeToWeekView"/>
         
         <Button
 	        android:id="@+id/progress_month_button"
@@ -25,7 +25,7 @@
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content"
 	        android:text="Month" 
-	        android:onClick="changeProgressToMonthView"/>
+	        android:onClick="changeToMonthView"/>
         
         <Button
 	        android:id="@+id/progress_month_3_button"
@@ -33,7 +33,7 @@
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content"
 	        android:text="3 Month" 
-	        android:onClick="changeProgressTo3MonthView"/>     
+	        android:onClick="changeTo3MonthView"/>     
     </LinearLayout>
 
     <TextView
