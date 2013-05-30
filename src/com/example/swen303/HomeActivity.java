@@ -22,15 +22,16 @@ import java.util.Date;
 import com.example.swen303.domainObjects.Acheivement;
 import com.example.swen303.domainObjects.Activity;
 import com.example.swen303.domainObjects.Colour;
-import com.example.swen303.domainObjects.QuantityActivity;
+import com.example.swen303.domainObjects.IQuantityActivity;
 import com.example.swen303.domainObjects.QuantityTask;
-import com.example.swen303.domainObjects.SimpleActivity;
+import com.example.swen303.domainObjects.ISimpleActivity;
 import com.example.swen303.domainObjects.SingleTask;
 import com.example.swen303.domainObjects.Task;
 import com.example.swen303.domainObjects.User;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -64,6 +65,8 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group);
+        
+        setupProfiles();
 
         // Create the adapter that will return a fragment for each of the three primary sections
         // of the app.
@@ -97,7 +100,7 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
         // set up PagerAdapter with all the fragments to return
         Fragment group = new GroupFragment();
         Fragment notifications = new MessagesFragment();
-        Fragment statistics = new StatisticsFragment();        
+        Fragment statistics = new TotalStatisticsFragment();        
         mAppSectionsPagerAdapter.addFragment(group);
         mAppSectionsPagerAdapter.addFragment(notifications);
         mAppSectionsPagerAdapter.addFragment(statistics);
@@ -115,6 +118,15 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
 
     }
 
+    
+	public void recordNewTask(View view){		
+		Intent intent = new Intent(this, RecordActivity.class);		
+		startActivity(intent);	
+	}
+    
+    
+    
+    
     
     public void redisplayTabs(){
   	
@@ -134,7 +146,10 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
     }
     
     
-    public void SetupProfiles(){
+    public void setupProfiles(){
+    	
+    	// Set logged in
+    	ApplicationState.username = "Isabel";
     	
     	// set up available tasks
     	ApplicationState.availableTasks.put("5 Min Shower", new SingleTask("5 Min Shower", R.drawable.settings, " had a five minute shower today.", 3));
@@ -148,9 +163,10 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
     	User me = new User("Isabel", Colour.Purple);
     	me.setPointsThisWeek(12);
     	me.addToTotalPoints(34);
+    	ApplicationState.users.put(me.getName(), me);
     	
     	// add a task
-    	Activity task = ((QuantityActivity)ApplicationState.availableTasks.get("Recycling")).GetInstance("Isabel", new Date(2013, 5, 25, 18, 32), 3);
+    	Activity task = ((IQuantityActivity)ApplicationState.availableTasks.get("Recycling")).GetInstance("Isabel", new Date(2013, 5, 25, 18, 32), 3);
     	me.addTask(task.getDate(), (Task)task);
     	ApplicationState.recentActivities.add(task);
     	
@@ -163,18 +179,13 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
     	User tim = new User("Tim", Colour.Orange);
     	tim.setPointsThisWeek(9);
     	tim.addToTotalPoints(36);
+    	ApplicationState.users.put(tim.getName(), tim);
     	
     	User kate = new User("Kate", Colour.Blue);
     	kate.setPointsThisWeek(14);
     	kate.addToTotalPoints(27);
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
+    	ApplicationState.users.put(kate.getName(), kate);
+    	    	
     }
     
     

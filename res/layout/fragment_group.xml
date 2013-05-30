@@ -17,30 +17,12 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     
-    <LinearLayout android:layout_width="match_parent"
+    <LinearLayout android:id="@+id/current_points_button_list"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="15dip">
         
-        <Button
-            android:id="@+id/testbutton"
-            android:layout_height="65dp"
-            android:layout_width="wrap_content"
-            android:background="@drawable/blue_button"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="Ben: 43"
-            />
-        
-        <Button
-            android:id="@+id/testbutton2"
-            android:layout_height="65dp"
-            android:layout_width="wrap_content"
-            android:background="@drawable/pink_button"
-            android:layout_weight="1"
-            android:text="Billissa: 33"
-            />
            
     </LinearLayout>
     
@@ -48,7 +30,8 @@
         android:id="@+id/button1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Record New Activity" 
+        android:text="Record New Task" 
+        android:onClick="recordNewTask"
         android:background="@drawable/custom_button"/>
     
     <ListView android:id="@+id/recent_activity_list" 

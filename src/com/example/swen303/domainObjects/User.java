@@ -1,25 +1,35 @@
 package com.example.swen303.domainObjects;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class User {
-
+	private static int idCount = 0;
+	
+	
+	private int id;
 	private String name;
 	private Colour colour;
 	private int pointsThisWeek;
 	private int totalPoints;
 
-	private Map<Date, Task> tasksAchieved;
-	private Map<Date, Acheivement> acheivementsAchieved;
+	private List<Task> tasksAchieved;
+	private List<Acheivement> acheivementsAchieved;
 	
 	public User(String name, Colour colour){
 		this.name = name;
 		this.colour = colour;
-		this.tasksAchieved = new HashMap<Date, Task>();
-		this.acheivementsAchieved = new HashMap<Date, Acheivement>();
+		this.tasksAchieved = new ArrayList<Task>();
+		this.acheivementsAchieved = new ArrayList<Acheivement>();
+		id = idCount++;
 	}
 
+	public int getId(){
+		return id;
+	}
+	
 	public int getPointsThisWeek() {
 		return pointsThisWeek;
 	}
@@ -36,20 +46,29 @@ public class User {
 		this.totalPoints += totalPoints;
 	}
 
-	public Map<Date, Task> getTasksAchieved() {
+	public List<Task> getTasksAchieved() {
 		return tasksAchieved;
 	}
 
+	/**
+	 * Adds the task to the list of tasks achieved, and adds the points
+	 * @param date
+	 * @param task
+	 */
 	public void addTask(Date date, Task task) {
-		this.tasksAchieved.put(date, task);
+		int points = ((Activity)task).GetPoints();
+		
+		this.tasksAchieved.add(task);
+		this.totalPoints += points;
+		this.pointsThisWeek += points;	
 	}
 
-	public Map<Date, Acheivement> getAcheivementsAchieved() {
+	public List<Acheivement> getAcheivementsAchieved() {
 		return acheivementsAchieved;
 	}
 
 	public void addAcheivement(Date date, Acheivement acheivement) {
-		this.acheivementsAchieved.put(date, acheivement);
+		this.acheivementsAchieved.add(acheivement);
 	}
 
 	public String getName() {

@@ -2,7 +2,7 @@ package com.example.swen303.domainObjects;
 
 import java.util.Date;
 
-public class QuantityTask extends Activity implements QuantityActivity, Task {
+public class QuantityTask extends Activity implements IQuantityActivity, Task {
 
 	// fields belonging to the task type
 	private final int pointsPerQuantity;

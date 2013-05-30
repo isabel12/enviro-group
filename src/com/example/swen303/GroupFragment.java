@@ -2,19 +2,28 @@ package com.example.swen303;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import com.example.swen303.domainObjects.Activity;
+import com.example.swen303.domainObjects.User;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 public class GroupFragment extends Fragment {
 	
+	private ViewGroup view;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -36,13 +45,59 @@ public class GroupFragment extends Fragment {
             return null;
         }	
         
-		int[] icons = new int[]{R.drawable.settings, R.drawable.ic_launcher};
-		String[] dates = new String[]{"12/05/13", "10/05/13"};
-		String[] descriptions = new String[]{"You recycled a 3 cans.", "Bill climbed 5 flights of stairs."};
-		String[] points = new String[]{"2 points", "3 points"};
+        view = (ViewGroup) inflater.inflate(R.layout.fragment_group, null);
+                
+		return view;
+	}
+	
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		insertPointsButtons();
+		insertRecentActivities();
+		
+	}
+	
+	
+	
+	
+	private void insertPointsButtons(){
+		LinearLayout layout = (LinearLayout)view.findViewById(R.id.current_points_button_list);
+			
+		layout.removeAllViews();
+		
+		for (User user: ApplicationState.users.values()){
+			Button b = new Button(getActivity());
+			b.setText(user.getName() + " : " + user.getPointsThisWeek());
+			b.setId(user.getId());
+			layout.addView(b);
+		}
+				
+	}
+	
+	
+	private void insertRecentActivities(){
+
+		List<Activity> recentActivities = new ArrayList<Activity>(ApplicationState.recentActivities);
+		Collections.reverse(recentActivities);
+		
+		int[] icons = new int[recentActivities.size()];
+		String[] dates = new String[recentActivities.size()];
+		String[] descriptions = new String[recentActivities.size()];
+		String[] points = new String[recentActivities.size()];
+		
+		for(int i = 0; i < recentActivities.size(); i++){
+			Activity a = recentActivities.get(i);
+			
+			icons[i] = a.GetIconId();
+			Date date = a.getDate();
+			dates[i] = String.format("%d/%d/%d", date.getDay(), date.getMonth(), date.getYear());
+			descriptions[i] = a.GetMessage();
+			points[i] = a.GetPoints() + " points";	
+		}
 		
 		
-		ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_group, null);
         
 		List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
 				
@@ -61,13 +116,11 @@ public class GroupFragment extends Fragment {
         SimpleAdapter adapter = new SimpleAdapter(getActivity(), aList, R.layout.recent_activity_row, from, to );
 			
         ListView listView = (ListView) view.findViewById(R.id.recent_activity_list);
-             
-        listView.setAdapter(adapter);
         
-		return view;
+        
+        listView.setAdapter(adapter);
+    
+		
 	}
-	
-	
-	
 
 }

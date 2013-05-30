@@ -2,7 +2,7 @@ package com.example.swen303.domainObjects;
 
 import java.util.Date;
 
-public class Acheivement extends Activity implements SimpleActivity {
+public class Acheivement extends Activity implements ISimpleActivity {
 
 	private int points;
 	
