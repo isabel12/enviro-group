@@ -17,7 +17,10 @@
 package com.example.swen303;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import com.example.swen303.domainObjects.Acheivement;
 import com.example.swen303.domainObjects.Activity;
@@ -28,124 +31,85 @@ import com.example.swen303.domainObjects.ISimpleActivity;
 import com.example.swen303.domainObjects.SingleTask;
 import com.example.swen303.domainObjects.Task;
 import com.example.swen303.domainObjects.User;
-
 import android.app.ActionBar;
-import android.app.FragmentTransaction;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
-public class HomeActivity extends FragmentActivity implements ActionBar.TabListener {
-
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the
-     * three primary sections of the app. We use a {@link android.support.v4.app.FragmentPagerAdapter}
-     * derivative, which will keep every loaded fragment in memory. If this becomes too memory
-     * intensive, it may be best to switch to a {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    AppSectionsPagerAdapter mAppSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will display the three primary sections of the app, one at a
-     * time.
-     */
-    ViewPager mViewPager;
+public class HomeActivity extends android.app.Activity {
     
     ActionBar actionBar;
-    
-    
-
+       
+    @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group);
-        
+        super.onCreate(savedInstanceState);      
         setupProfiles();
-
-        // Create the adapter that will return a fragment for each of the three primary sections
-        // of the app.
-        mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
-
+        
         // Set up the action bar.
         actionBar = getActionBar();
 
         // Specify that the Home/Up button should not be enabled, since there is no hierarchical
         // parent.
         actionBar.setHomeButtonEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
-
-        // Specify that we will be displaying tabs in the action bar.
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        // Set up the ViewPager, attaching the adapter and setting up a listener for when the
-        // user swipes between sections.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mAppSectionsPagerAdapter);
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                // When swiping between different app sections, select the corresponding tab.
-                // We can also use ActionBar.Tab#select() to do this if we have a reference to the
-                // Tab.
-                actionBar.setSelectedNavigationItem(position);
-            }
-        });
-
-        // set up PagerAdapter with all the fragments to return
-        Fragment group = new GroupFragment();
-        Fragment notifications = new MessagesFragment();
-        Fragment statistics = new TotalStatisticsFragment();        
-        mAppSectionsPagerAdapter.addFragment(group);
-        mAppSectionsPagerAdapter.addFragment(notifications);
-        mAppSectionsPagerAdapter.addFragment(statistics);
-                
-        // For each of the sections in the app, add a tab to the action bar.
-        for (int i = 0; i < mAppSectionsPagerAdapter.getCount(); i++) {
-            // Create a tab with text corresponding to the page title defined by the adapter.
-            // Also specify this Activity object, which implements the TabListener interface, as the
-            // listener for when this tab is selected.
-            actionBar.addTab(
-                    actionBar.newTab()
-                            .setText(mAppSectionsPagerAdapter.getPageTitle(i))
-                            .setTabListener(this));
-        }
-
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle("My Group");
+        
+        setContentView(R.layout.fragment_group);
     }
 
     
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.statistics, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		// handle item selection
+		switch(item.getItemId()){
+		case R.id.statistics_option:
+			//new AlertDialog.Builder(this).setMessage("Statistics button selected").show(); 
+			Intent intent = new Intent(this, StatisticsActivity.class);
+			startActivity(intent);
+			return true;
+			
+		default:
+			return super.onOptionsItemSelected(item);
+		}		
+	}
+    
+    
+    
+	@Override
+	public void onResume(){
+		super.onResume();
+		insertPointsButtons();
+		insertRecentActivities();	
+	}
+    
+    
+    /**
+     * Responds to the button to Record a new task
+     * @param view
+     */
 	public void recordNewTask(View view){		
 		Intent intent = new Intent(this, RecordActivity.class);		
 		startActivity(intent);	
 	}
     
-    
-    
-    
-    
-    public void redisplayTabs(){
-  	
-    	actionBar.removeAllTabs();
-    	
-        // For each of the sections in the app, add a tab to the action bar.
-        for (int i = 0; i < mAppSectionsPagerAdapter.getCount(); i++) {
-            // Create a tab with text corresponding to the page title defined by the adapter.
-            // Also specify this Activity object, which implements the TabListener interface, as the
-            // listener for when this tab is selected.
-            actionBar.addTab(
-                    actionBar.newTab()
-                            .setText(mAppSectionsPagerAdapter.getPageTitle(i))
-                            .setTabListener(this));
-        }
-    		
-    }
-    
-    
+       
+    /**
+     * Sets up profiles in ApplicationState
+     */
     public void setupProfiles(){
     	
     	// Set logged in
@@ -189,66 +153,63 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
     }
     
     
-    
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-    }
+	private void insertPointsButtons(){
+		LinearLayout layout = (LinearLayout)findViewById(R.id.current_points_button_list);
+			
+		layout.removeAllViews();
+		
+		for (User user: ApplicationState.users.values()){
+			Button b = new Button(this);
+			b.setText(user.getName() + " : " + user.getPointsThisWeek());
+			b.setId(user.getId());
+			layout.addView(b);
+		}
+				
+	}
+	
+	private void insertRecentActivities(){
 
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        // When the given tab is selected, switch to the corresponding page in the ViewPager.
-        mViewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-    }
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the primary
-     * sections of the app.
-     */
-    public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
-
-    	private ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
-    	
-        public AppSectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-      
-        public void addFragment(Fragment fragment) {
-            mFragments.add(fragment);
-            notifyDataSetChanged();
-        }
+		List<Activity> recentActivities = new ArrayList<Activity>(ApplicationState.recentActivities);
+		Collections.reverse(recentActivities);
+		
+		int[] icons = new int[recentActivities.size()];
+		String[] dates = new String[recentActivities.size()];
+		String[] descriptions = new String[recentActivities.size()];
+		String[] points = new String[recentActivities.size()];
+		
+		for(int i = 0; i < recentActivities.size(); i++){
+			Activity a = recentActivities.get(i);
+			
+			icons[i] = a.GetIconId();
+			Date date = a.getDate();
+			dates[i] = String.format("%d/%d/%d", date.getDay(), date.getMonth(), date.getYear());
+			descriptions[i] = a.GetMessage();
+			points[i] = a.GetPoints() + " points";	
+		}
+		
+		List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
+				
+		for(int i = 0; i < 2; i++){
+			HashMap<String, String> hm = new HashMap<String, String>();
+			hm.put("icon", icons[i]+"");
+			hm.put("date", dates[i]);
+			hm.put("descr", descriptions[i]);
+			hm.put("points", points[i]);
+			aList.add(hm);
+		}		
+		
+        String[] from = {"icon", "date", "descr", "points"};
+        int[] to = {R.id.recent_activity_icon, R.id.recent_activity_date, R.id.recent_activity_description, R.id.recent_activity_points};
         
-        @Override
-        public Fragment getItem(int i) {
-        	return mFragments.get(i);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragments.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch(position){
-            case 0:
-            	return "Group";
-            case 1: 
-            	int numMessages = ((MessagesFragment)mFragments.get(1)).GetNumberOfUnreadMessages();
-            	String toAdd = numMessages == 0 ? "" : " - " + numMessages;                 	
-            	return "Messages" + toAdd;		
-            case 2: 
-            	return "Stats";
-            default:
-            	return "Unknown";            
-            }
-            
-        }
-    }
+        SimpleAdapter adapter = new SimpleAdapter(this, aList, R.layout.recent_activity_row, from, to );
+			
+        ListView listView = (ListView)findViewById(R.id.recent_activity_list);
+        
+        listView.setAdapter(adapter);
+	}
+    
+    
+    
+    
    
-    
-    
 }
