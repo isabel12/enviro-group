@@ -43,7 +43,7 @@ public class User {
 	}
 
 	public void addToTotalPoints(int toAdd) {
-		this.totalPoints += totalPoints;
+		this.totalPoints += toAdd;
 	}
 
 	public List<Task> getTasksAchieved() {

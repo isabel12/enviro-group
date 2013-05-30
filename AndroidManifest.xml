@@ -45,7 +45,11 @@
         </activity>
         <activity
             android:name="com.example.swen303.StatisticsActivity"
-            android:label="@string/title_activity_statistics" >
+            android:label="@string/title_activity_statistics" 
+            android:parentActivityName="com.example.swen303.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.swen303.HomeActivity" />
         </activity>
     </application>
 

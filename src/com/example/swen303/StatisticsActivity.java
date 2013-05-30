@@ -97,15 +97,12 @@ public class StatisticsActivity extends FragmentActivity implements
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
-	        case android.R.id.home:
-	            // app icon in action bar clicked; go home
-	            Intent intent = new Intent(this, HomeActivity.class);
-	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	            startActivity(intent);
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
+	    // Respond to the action bar's Up/Home button
+	    case android.R.id.home:
+	        NavUtils.navigateUpFromSameTask(this);
+	        return true;
 	    }
+	    return super.onOptionsItemSelected(item);
 	}
 	
 	

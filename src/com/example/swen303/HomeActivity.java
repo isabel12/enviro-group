@@ -49,8 +49,10 @@ public class HomeActivity extends android.app.Activity {
        
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);      
-        setupProfiles();
+        super.onCreate(savedInstanceState);   
+        
+        // initialise state
+        ApplicationState.setupProfiles();
         
         // Set up the action bar.
         actionBar = getActionBar();
@@ -86,17 +88,14 @@ public class HomeActivity extends android.app.Activity {
 			return super.onOptionsItemSelected(item);
 		}		
 	}
-    
-    
-    
+     
 	@Override
 	public void onResume(){
 		super.onResume();
 		insertPointsButtons();
 		insertRecentActivities();	
 	}
-    
-    
+     
     /**
      * Responds to the button to Record a new task
      * @param view
@@ -107,57 +106,17 @@ public class HomeActivity extends android.app.Activity {
 	}
     
        
-    /**
-     * Sets up profiles in ApplicationState
-     */
-    public void setupProfiles(){
-    	
-    	// Set logged in
-    	ApplicationState.username = "Isabel";
-    	
-    	// set up available tasks
-    	ApplicationState.availableTasks.put("5 Min Shower", new SingleTask("5 Min Shower", R.drawable.settings, " had a five minute shower today.", 3));
-    	ApplicationState.availableTasks.put("Recycling", new QuantityTask("Recycling", R.drawable.settings, " recycled {0} items.", "Number of items recycled", 1)); 
-		ApplicationState.availableTasks.put("Catching Bus", new SingleTask("Catching Bus", R.drawable.settings, " caught the bus instead of driving.", 1));	
-		ApplicationState.availableTasks.put("Walking", new SingleTask("Walking", R.drawable.settings, " walked instead of catching the bus.", 3));	
-		ApplicationState.availableTasks.put("Taking the Stairs", new SingleTask("Taking the Stairs", R.drawable.settings, " took the stairs instead of using the lift.", 1));
-    	
-		
-    	// my profile	
-    	User me = new User("Isabel", Colour.Purple);
-    	me.setPointsThisWeek(12);
-    	me.addToTotalPoints(34);
-    	ApplicationState.users.put(me.getName(), me);
-    	
-    	// add a task
-    	Activity task = ((IQuantityActivity)ApplicationState.availableTasks.get("Recycling")).GetInstance("Isabel", new Date(2013, 5, 25, 18, 32), 3);
-    	me.addTask(task.getDate(), (Task)task);
-    	ApplicationState.recentActivities.add(task);
-    	
-    	// add an achievement
-    	Activity acheivement = new Acheivement("Recycling", R.drawable.settings, " recycled their first items.", 1, "Isabel", new Date(2013, 5, 25, 18, 32));
-    	me.addAcheivement(acheivement.getDate(), (Acheivement)acheivement);
-    	ApplicationState.recentActivities.add(acheivement);    	    	
-    	
-    	
-    	User tim = new User("Tim", Colour.Orange);
-    	tim.setPointsThisWeek(9);
-    	tim.addToTotalPoints(36);
-    	ApplicationState.users.put(tim.getName(), tim);
-    	
-    	User kate = new User("Kate", Colour.Blue);
-    	kate.setPointsThisWeek(14);
-    	kate.addToTotalPoints(27);
-    	ApplicationState.users.put(kate.getName(), kate);
-    	    	
-    }
-    
-    
+	/**
+	 * Inserts all the points buttons
+	 */
 	private void insertPointsButtons(){
+		// get the layout
 		LinearLayout layout = (LinearLayout)findViewById(R.id.current_points_button_list);
 			
+		// remove all the buttons
 		layout.removeAllViews();
-		
+			
+		// make new buttons
 		for (User user: ApplicationState.users.values()){
 			Button b = new Button(this);
 			b.setText(user.getName() + " : " + user.getPointsThisWeek());
@@ -167,19 +126,22 @@ public class HomeActivity extends android.app.Activity {
 				
 	}
 	
+	/**
+	 * Refreshes the recent activities list
+	 */
 	private void insertRecentActivities(){
 
+		// get the data
 		List<Activity> recentActivities = new ArrayList<Activity>(ApplicationState.recentActivities);
 		Collections.reverse(recentActivities);
 		
+		// extract all the data into arrays
 		int[] icons = new int[recentActivities.size()];
 		String[] dates = new String[recentActivities.size()];
 		String[] descriptions = new String[recentActivities.size()];
 		String[] points = new String[recentActivities.size()];
-		
 		for(int i = 0; i < recentActivities.size(); i++){
-			Activity a = recentActivities.get(i);
-			
+			Activity a = recentActivities.get(i);	
 			icons[i] = a.GetIconId();
 			Date date = a.getDate();
 			dates[i] = String.format("%d/%d/%d", date.getDay(), date.getMonth(), date.getYear());
@@ -187,8 +149,8 @@ public class HomeActivity extends android.app.Activity {
 			points[i] = a.GetPoints() + " points";	
 		}
 		
-		List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
-				
+		// build the list, and the mapping arrays
+		List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();			
 		for(int i = 0; i < 2; i++){
 			HashMap<String, String> hm = new HashMap<String, String>();
 			hm.put("icon", icons[i]+"");
@@ -197,15 +159,19 @@ public class HomeActivity extends android.app.Activity {
 			hm.put("points", points[i]);
 			aList.add(hm);
 		}		
-		
         String[] from = {"icon", "date", "descr", "points"};
         int[] to = {R.id.recent_activity_icon, R.id.recent_activity_date, R.id.recent_activity_description, R.id.recent_activity_points};
         
+        // make a new adapter
         SimpleAdapter adapter = new SimpleAdapter(this, aList, R.layout.recent_activity_row, from, to );
 			
+        // set adapter for the list view
         ListView listView = (ListView)findViewById(R.id.recent_activity_list);
-        
         listView.setAdapter(adapter);
+        
+        
+        listView = (ListView)findViewById(R.id.recent_activity_list);
+        
 	}
     
     
