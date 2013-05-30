@@ -3,6 +3,7 @@ package com.example.swen303;
 import java.util.Locale;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,13 +17,21 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class StatisticsActivity extends FragmentActivity implements
 		ActionBar.TabListener {
 
+	
+	int tabIndex;
+	
+	
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
 	 * fragments for each of the sections. We use a
@@ -67,6 +76,7 @@ public class StatisticsActivity extends FragmentActivity implements
 					@Override
 					public void onPageSelected(int position) {
 						actionBar.setSelectedNavigationItem(position);
+						tabIndex = position;
 					}
 				});
 
@@ -80,6 +90,7 @@ public class StatisticsActivity extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+				
 	}
 
 
@@ -96,6 +107,96 @@ public class StatisticsActivity extends FragmentActivity implements
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
+	
+	
+	public void changeProgressToWeekView(View view){		
+		changeProgressToWeekView();
+	}
+	
+	
+	public void changeProgressToWeekView(){	
+		// get title
+		TextView title = (TextView)findViewById(R.id.progress_graph_title);
+		title.setText("Weekly points");
+			
+		// get image
+		ImageView image = (ImageView)findViewById(R.id.progress_graph_image);
+		image.setImageDrawable(getResources().getDrawable(R.drawable.week_progress));			
+	}
+	
+	
+	
+	public void changeProgressToMonthView(View view){
+		changeProgressToMonthView();
+	}
+	
+	public void changeProgressToMonthView(){
+						
+		// get title
+		TextView title = (TextView)findViewById(R.id.progress_graph_title);
+		title.setText("Monthly points");
+			
+		// get image
+		ImageView image = (ImageView)findViewById(R.id.progress_graph_image);
+		image.setImageDrawable(getResources().getDrawable(R.drawable.month_progress));
+		
+	}
+	
+	public void changeProgressTo3MonthView(View view){
+		changeProgressTo3MonthView();
+	}
+	
+	public void changeProgressTo3MonthView(){
+		
+	}
+	
+	
+	
+	public void changeTotalToWeekView(View view){		
+		changeProgressToWeekView();
+	}
+	
+	
+	public void changeTotalToWeekView(){	
+		// get title
+		TextView title = (TextView)findViewById(R.id.progress_graph_title);
+		title.setText("Weekly points");
+			
+		// get image
+		ImageView image = (ImageView)findViewById(R.id.total_graph_image);
+		image.setImageDrawable(getResources().getDrawable(R.drawable.week_total));			
+	}
+	
+	
+	
+	public void changeTotalToMonthView(View view){
+		changeProgressToMonthView();
+	}
+	
+	public void changeTotalToMonthView(){
+						
+		// get title
+		TextView title = (TextView)findViewById(R.id.total_graph_title);
+		title.setText("Monthly points");
+			
+		// get image
+		ImageView image = (ImageView)findViewById(R.id.total_graph_image);
+		image.setImageDrawable(getResources().getDrawable(R.drawable.month_total));
+	}
+	
+	public void changeTotalTo3MonthView(View view){
+		changeProgressTo3MonthView();
+	}
+	
+	public void changeTotalTo3MonthView(){
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -164,6 +265,9 @@ public class StatisticsActivity extends FragmentActivity implements
 	 * displays dummy text.
 	 */
 	public static class StatisticsFragment extends Fragment {
+		
+		ViewGroup container;
+		
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
@@ -178,14 +282,149 @@ public class StatisticsActivity extends FragmentActivity implements
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
+			this.container = container;
 			
 			int type = getArguments().getInt(ARG_STATISTICS_TYPE);
 			
 			switch(type){
-			case TOTAL:
-				return inflater.inflate(R.layout.fragment_total_statistics, container, false);
-			case PROGRESS:
-				return inflater.inflate(R.layout.fragment_progress_statistics, container, false);	
+				case TOTAL:
+					
+					View view = inflater.inflate(R.layout.fragment_total_statistics, container, false);
+					
+					Button weekButton = (Button) view.findViewById(R.id.total_week_button);
+					weekButton.setPressed(true);
+					Button monthButton = (Button) view.findViewById(R.id.total_month_button);
+					Button month3Button = (Button) view.findViewById(R.id.total_month_3_button);
+					
+					
+					weekButton.setOnTouchListener(new OnTouchListener() {
+			            @Override
+			            public boolean onTouch(View v, MotionEvent event) {
+			            	StatisticsActivity activity = (StatisticsActivity) v.getContext();
+       	
+			            	Button weekButton = (Button) activity.findViewById(R.id.total_week_button);
+			            	Button monthButton = (Button) activity.findViewById(R.id.total_month_button);
+			            	Button month3Button = (Button) activity.findViewById(R.id.total_month_3_button);
+			            	
+			                weekButton.setPressed(true);
+			                monthButton.setPressed(false);
+			                month3Button.setPressed(false);
+			                
+			                activity.changeTotalToWeekView();
+			                
+			                return true;
+			            }
+			        });
+			
+					monthButton.setOnTouchListener(new OnTouchListener() {
+			            @Override
+			            public boolean onTouch(View v, MotionEvent event) {
+			            	StatisticsActivity activity = (StatisticsActivity) v.getContext();
+			
+			            	Button weekButton = (Button) activity.findViewById(R.id.total_week_button);
+			            	Button monthButton = (Button) activity.findViewById(R.id.total_month_button);
+			            	Button month3Button = (Button) activity.findViewById(R.id.total_month_3_button);
+			            	
+			                weekButton.setPressed(false);
+			                monthButton.setPressed(true);
+			                month3Button.setPressed(false);
+			                
+			                activity.changeTotalToMonthView();
+			                
+			                return true;
+			            }
+			        });
+		
+		
+					month3Button.setOnTouchListener(new OnTouchListener() {
+			            @Override
+			            public boolean onTouch(View v, MotionEvent event) {
+			            	StatisticsActivity activity = (StatisticsActivity) v.getContext();
+			
+			            	Button weekButton = (Button) activity.findViewById(R.id.total_week_button);
+			            	Button monthButton = (Button) activity.findViewById(R.id.total_month_button);
+			            	Button month3Button = (Button) activity.findViewById(R.id.total_month_3_button);
+			            	
+			                weekButton.setPressed(false);
+			                monthButton.setPressed(false);
+			                month3Button.setPressed(true);
+			                
+			                activity.changeTotalTo3MonthView();
+			                
+			                return true;
+			            }
+			        });							
+					
+					return view;
+				case PROGRESS:
+					
+					view = inflater.inflate(R.layout.fragment_progress_statistics, container, false);
+					
+					weekButton = (Button) view.findViewById(R.id.progress_week_button);
+					weekButton.setPressed(true);
+					monthButton = (Button) view.findViewById(R.id.progress_month_button);
+					month3Button = (Button) view.findViewById(R.id.progress_month_3_button);
+					
+					weekButton.setOnTouchListener(new OnTouchListener() {
+					            @Override
+					            public boolean onTouch(View v, MotionEvent event) {
+					            	StatisticsActivity activity = (StatisticsActivity) v.getContext();
+               	
+					            	Button weekButton = (Button) activity.findViewById(R.id.progress_week_button);
+					            	Button monthButton = (Button) activity.findViewById(R.id.progress_month_button);
+					            	Button month3Button = (Button) activity.findViewById(R.id.progress_month_3_button);
+					            	
+					                weekButton.setPressed(true);
+					                monthButton.setPressed(false);
+					                month3Button.setPressed(false);
+					                
+					                activity.changeProgressToWeekView();
+					                
+					                return true;
+					            }
+					        });
+					
+					monthButton.setOnTouchListener(new OnTouchListener() {
+			            @Override
+			            public boolean onTouch(View v, MotionEvent event) {
+			            	StatisticsActivity activity = (StatisticsActivity) v.getContext();
+       	
+			            	Button weekButton = (Button) activity.findViewById(R.id.progress_week_button);
+			            	Button monthButton = (Button) activity.findViewById(R.id.progress_month_button);
+			            	Button month3Button = (Button) activity.findViewById(R.id.progress_month_3_button);
+			            	
+			                weekButton.setPressed(false);
+			                monthButton.setPressed(true);
+			                month3Button.setPressed(false);
+			                
+			                activity.changeProgressToMonthView();
+			                
+			                return true;
+			            }
+			        });
+
+
+					month3Button.setOnTouchListener(new OnTouchListener() {
+			            @Override
+			            public boolean onTouch(View v, MotionEvent event) {
+			            	StatisticsActivity activity = (StatisticsActivity) v.getContext();
+       	
+			            	Button weekButton = (Button) activity.findViewById(R.id.progress_week_button);
+			            	Button monthButton = (Button) activity.findViewById(R.id.progress_month_button);
+			            	Button month3Button = (Button) activity.findViewById(R.id.progress_month_3_button);
+			            	
+			                weekButton.setPressed(false);
+			                monthButton.setPressed(false);
+			                month3Button.setPressed(true);
+			                
+			                activity.changeProgressTo3MonthView();
+			                
+			                return true;
+			            }
+			        });		
+					
+					
+					return view;
 			}
 			
 			return null;

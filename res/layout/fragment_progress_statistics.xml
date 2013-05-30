@@ -4,7 +4,49 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#AABED9"
-    android:padding="5dip">
+    android:padding="20dip">
 
+    <LinearLayout
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal">   
+    	
+        <Button
+	        android:id="@+id/progress_week_button"
+	        android:layout_width="0dp"
+	        android:layout_weight="1"
+	        android:layout_height="wrap_content"
+	        android:text="Week" 
+	        android:onClick="changeProgressToWeekView"/>
+        
+        <Button
+	        android:id="@+id/progress_month_button"
+	        android:layout_width="0dp"
+	        android:layout_weight="1"
+	        android:layout_height="wrap_content"
+	        android:text="Month" 
+	        android:onClick="changeProgressToMonthView"/>
+        
+        <Button
+	        android:id="@+id/progress_month_3_button"
+	        android:layout_width="0dp"
+	        android:layout_weight="1"
+	        android:layout_height="wrap_content"
+	        android:text="3 Month" 
+	        android:onClick="changeProgressTo3MonthView"/>     
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/progress_graph_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weekly points"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageView
+        android:id="@+id/progress_graph_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/week_progress" />
     
 </LinearLayout>

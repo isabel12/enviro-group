@@ -155,7 +155,7 @@ public class RecordActivity extends Activity {
 			}	
 			
 			// make new instance
-			newInstance = (Task)((QuantityTask) task).GetInstance(username, date, quantity);
+			newInstance = (Task)((QuantityTask)task).GetInstance(username, date, quantity);
 		}
 		// if single task
 		else{ 	
