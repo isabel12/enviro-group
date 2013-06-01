@@ -12,7 +12,7 @@ import com.example.swen303.domainObjects.Colour;
 import com.example.swen303.domainObjects.IQuantityActivity;
 import com.example.swen303.domainObjects.QuantityTask;
 import com.example.swen303.domainObjects.SingleTask;
-import com.example.swen303.domainObjects.Task;
+import com.example.swen303.domainObjects.ITask;
 import com.example.swen303.domainObjects.User;
 
 public class ApplicationState {
@@ -20,7 +20,7 @@ public class ApplicationState {
 	public static String username;
 	public static Map<String, User> users = new HashMap<String, User>(); // from name to User	
 	public static List<Activity> recentActivities = new ArrayList<Activity>();
-	public static Map<String, Task> availableTasks = new HashMap<String, Task>(); // from task name to Task
+	public static Map<String, ITask> availableTasks = new HashMap<String, ITask>(); // from task name to Task
 	
 	
     /**
@@ -47,7 +47,7 @@ public class ApplicationState {
     	
     	// add a task
     	Activity task = ((IQuantityActivity)ApplicationState.availableTasks.get("Recycling")).GetInstance("Isabel", new Date(2013, 5, 25, 18, 32), 3);
-    	me.addTask(task.getDate(), (Task)task);
+    	me.addTask(task.getDate(), (ITask)task);
     	ApplicationState.recentActivities.add(task);
     	
     	// add an achievement

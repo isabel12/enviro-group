@@ -5,13 +5,16 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import com.example.swen303.domainObjects.ISimpleActivity;
+import com.example.swen303.domainObjects.ITask;
 import com.example.swen303.domainObjects.QuantityTask;
 import com.example.swen303.domainObjects.SingleTask;
-import com.example.swen303.domainObjects.Task;
 import com.example.swen303.domainObjects.User;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,7 +30,10 @@ import android.support.v4.app.NavUtils;
 public class RecordActivity extends Activity {
 
 	private List<String> tasks;
-	private Task task;
+	
+	private List<ITask> tasksInSpinner;
+	
+	private ITask task;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +79,8 @@ public class RecordActivity extends Activity {
 		if (task == null || !(task instanceof QuantityTask)){	
 			quantityMessage.setVisibility(View.GONE);
 			quantity.setVisibility(View.GONE);	
+			
+			
 		} else {
 			quantityMessage.setText(((QuantityTask) task).GetQuantityMessage());
 			quantityMessage.setVisibility(View.VISIBLE);
@@ -86,10 +94,20 @@ public class RecordActivity extends Activity {
 		Spinner spinner = (Spinner) findViewById(R.id.activities_spinner);
 		
 		tasks = new ArrayList<String>();
-		for(String taskName: ApplicationState.availableTasks.keySet()){
-			tasks.add(taskName);
+		tasksInSpinner = new ArrayList<ITask>(ApplicationState.availableTasks.values());
+		Collections.sort(tasksInSpinner);
+		
+		for(ITask task: tasksInSpinner){
+			
+			if (task instanceof SingleTask){
+				SingleTask singleTask = (SingleTask)task;
+				tasks.add( singleTask.GetName() + "  (" + singleTask.GetPoints() + " points)");
+			} else {
+				QuantityTask quantityTask = (QuantityTask)task;
+				tasks.add(quantityTask.GetName() + "  (" + quantityTask.GetPointsPerItem() + " points per item)");
+			}	
+			
 		}
-		Collections.sort(tasks);
 
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
 			android.R.layout.simple_spinner_item, tasks);
@@ -104,11 +122,10 @@ public class RecordActivity extends Activity {
 					int position, long id) {
 				// TODO Auto-generated method stub
 				
-				String taskName = tasks.get(position);
+				String taskName = tasksInSpinner.get(position).GetName();
 				task = ApplicationState.availableTasks.get(taskName);
 				
-				setQuantityVisibility();
-					
+				setQuantityVisibility();		
 			}
 
 			@Override
@@ -132,7 +149,7 @@ public class RecordActivity extends Activity {
 	 */
 	public void recordActivity(View view){
 		
-		Task newInstance = null;
+		ITask newInstance = null;
 		
 		int quantity = 0;
 		String username = ApplicationState.username;
@@ -151,11 +168,11 @@ public class RecordActivity extends Activity {
 			}	
 			
 			// make new instance
-			newInstance = (Task)((QuantityTask)task).GetInstance(username, date, quantity);
+			newInstance = (ITask)((QuantityTask)task).GetInstance(username, date, quantity);
 		}
 		// if single task
 		else{ 	
-			newInstance = (Task)((SingleTask)task).GetInstance(username, date);
+			newInstance = (ITask)((SingleTask)task).GetInstance(username, date);
 		}
 		
 		
@@ -165,6 +182,25 @@ public class RecordActivity extends Activity {
 			
 		// add to recentActivities
 		ApplicationState.recentActivities.add((com.example.swen303.domainObjects.Activity) newInstance);
+		
+
+		
+    	// display a message
+    	new AlertDialog.Builder(this)
+        .setTitle("Task Recorded")
+        .setMessage("You received " + task.GetPoints() + " points.")
+        .setPositiveButton("Return to My Group", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+            	NavUtils.navigateUpFromSameTask(RecordActivity.this);
+            }
+        }).setNegativeButton("Record New Task", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                  //nothing
+            }
+        }).show();
+		
+		
+		
 		
 	}
 	

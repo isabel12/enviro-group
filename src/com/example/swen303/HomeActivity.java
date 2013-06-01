@@ -18,31 +18,19 @@ package com.example.swen303;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-
-import com.example.swen303.domainObjects.Acheivement;
 import com.example.swen303.domainObjects.Activity;
-import com.example.swen303.domainObjects.Colour;
-import com.example.swen303.domainObjects.IQuantityActivity;
-import com.example.swen303.domainObjects.QuantityTask;
-import com.example.swen303.domainObjects.ISimpleActivity;
-import com.example.swen303.domainObjects.SingleTask;
-import com.example.swen303.domainObjects.Task;
 import com.example.swen303.domainObjects.User;
 import android.app.ActionBar;
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 public class HomeActivity extends android.app.Activity {
     
@@ -132,6 +120,28 @@ public class HomeActivity extends android.app.Activity {
 			b.setText(user.getName() + " : " + user.getPointsThisWeek());
 			b.setId(user.getId());
 			layout.addView(b);
+			b.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View button) {
+					// get user id
+					int id = button.getId();
+					
+					// find user
+					User user = null;
+					for (User u : ApplicationState.users.values()){
+						if(u.getId() == id){
+							user = u;
+							break;
+						}	
+					}
+					
+					// start profile activity
+					Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+					intent.putExtra(ProfileActivity.USERNAME, user.getName());
+					startActivity(intent);		
+				}	
+			});			
 		}	
 		
 		layout.invalidate();
@@ -151,53 +161,6 @@ public class HomeActivity extends android.app.Activity {
 		adapter.addAll(recentActivities);
 		adapter.notifyDataSetChanged();
 
-		
-		
-		
-		
-		
-		
-		
-		
-//      listView.setAdapter(adapter);
-
-//		// extract all the data into arrays
-//		int[] icons = new int[recentActivities.size()];
-//		String[] dates = new String[recentActivities.size()];
-//		String[] descriptions = new String[recentActivities.size()];
-//		String[] points = new String[recentActivities.size()];
-//		for(int i = 0; i < recentActivities.size(); i++){
-//			Activity a = recentActivities.get(i);	
-//			icons[i] = a.GetIconId();
-//			Date date = a.getDate();
-//			dates[i] = String.format("%d/%d/%d", date.getDay(), date.getMonth(), date.getYear());
-//			descriptions[i] = a.GetMessage();
-//			points[i] = a.GetPoints() + " points";	
-//		}
-//		
-//		// build the list, and the mapping arrays
-//		List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();			
-//		for(int i = 0; i < 2; i++){
-//			HashMap<String, String> hm = new HashMap<String, String>();
-//			hm.put("icon", icons[i]+"");
-//			hm.put("date", dates[i]);
-//			hm.put("descr", descriptions[i]);
-//			hm.put("points", points[i]);
-//			aList.add(hm);
-//		}		
-//        String[] from = {"icon", "date", "descr", "points"};
-//        int[] to = {R.id.recent_activity_icon, R.id.recent_activity_date, R.id.recent_activity_description, R.id.recent_activity_points};
-//        
-//        // make a new adapter
-//        SimpleAdapter adapter = new SimpleAdapter(this, aList, R.layout.recent_activity_row, from, to );
-//			
-//        // set adapter for the list view
-//        ListView listView = (ListView)findViewById(R.id.recent_activity_list);
-//        listView.setAdapter(adapter);
-//        
-//        
-
-        
 	}
     
     

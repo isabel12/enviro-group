@@ -1,4 +1,5 @@
 package com.example.swen303;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import com.example.swen303.domainObjects.Activity;
@@ -25,7 +26,7 @@ public class RecentActivityAdapter extends ArrayAdapter<Activity> {
 		super(context, R.layout.recent_activity_row, recentActivities);
 	}
 	
-    /**
+	/**
      * {@inheritDoc}
      */
     @Override

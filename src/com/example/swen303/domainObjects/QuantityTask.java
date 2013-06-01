@@ -2,7 +2,7 @@ package com.example.swen303.domainObjects;
 
 import java.util.Date;
 
-public class QuantityTask extends Activity implements IQuantityActivity, Task {
+public class QuantityTask extends Activity implements IQuantityActivity, ITask {
 
 	// fields belonging to the task type
 	private final int pointsPerQuantity;
@@ -36,6 +36,10 @@ public class QuantityTask extends Activity implements IQuantityActivity, Task {
 		return quantity * pointsPerQuantity;
 	}
 
+	public int GetPointsPerItem(){
+		return pointsPerQuantity;
+	}
+	
 	/**
 	 * Returns a copy of the QuantityTask that is bound to the username and the quantity.
 	 */
@@ -59,6 +63,11 @@ public class QuantityTask extends Activity implements IQuantityActivity, Task {
 	 */
 	public String GetQuantityMessage(){
 		return quantityMessage;
+	}
+
+	@Override
+	public int compareTo(ITask another) {
+		return this.GetName().compareTo(another.GetName());
 	}
 		
 }

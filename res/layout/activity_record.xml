@@ -25,6 +25,12 @@
         android:layout_height="wrap_content"
         android:hint="Quantity" />
     
+    <TextView
+        android:id="@+id/task_points_value_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+        
+    
     <Button android:id="@+id/record_task_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

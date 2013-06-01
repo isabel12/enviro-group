@@ -2,7 +2,7 @@ package com.example.swen303.domainObjects;
 
 import java.util.Date;
 
-public class SingleTask extends Activity implements ISimpleActivity, Task {
+public class SingleTask extends Activity implements ISimpleActivity, ITask {
 
 	private final int points;
 	
@@ -26,6 +26,11 @@ public class SingleTask extends Activity implements ISimpleActivity, Task {
 		instance.date = date;
 		
 		return instance;
+	}
+
+	@Override
+	public int compareTo(ITask another) {
+		return this.GetName().compareTo(another.GetName());
 	}
 
 }

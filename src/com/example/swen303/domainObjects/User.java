@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.swen303.R;
+
 public class User {
 	private static int idCount = 0;
 	
@@ -15,13 +17,13 @@ public class User {
 	private int pointsThisWeek;
 	private int totalPoints;
 
-	private List<Task> tasksAchieved;
+	private List<ITask> tasksAchieved;
 	private List<Acheivement> acheivementsAchieved;
 	
 	public User(String name, Colour colour){
 		this.name = name;
 		this.colour = colour;
-		this.tasksAchieved = new ArrayList<Task>();
+		this.tasksAchieved = new ArrayList<ITask>();
 		this.acheivementsAchieved = new ArrayList<Acheivement>();
 		id = idCount++;
 	}
@@ -46,7 +48,7 @@ public class User {
 		this.totalPoints += toAdd;
 	}
 
-	public List<Task> getTasksAchieved() {
+	public List<ITask> getTasksAchieved() {
 		return tasksAchieved;
 	}
 
@@ -55,7 +57,7 @@ public class User {
 	 * @param date
 	 * @param task
 	 */
-	public void addTask(Date date, Task task) {
+	public void addTask(Date date, ITask task) {
 		int points = ((Activity)task).GetPoints();
 		
 		this.tasksAchieved.add(task);
@@ -77,5 +79,18 @@ public class User {
 
 	public Colour getColour() {
 		return colour;
+	}
+	
+	public int getProfilePictureId(){
+		switch(colour){
+			case Blue:
+				return R.drawable.blue_profile;
+			case Purple:
+				return R.drawable.purple_profile;
+			case Orange:
+				return R.drawable.orange_profile;
+			default:
+				return R.drawable.purple_profile;
+		}
 	}
 }

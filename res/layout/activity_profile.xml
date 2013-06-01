@@ -1,16 +1,70 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ProfileActivity" >
+    android:orientation="vertical"
+    android:background="#AABED9"
+    android:padding="5dip">
 
-    <TextView
+    
+    <LinearLayout 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:orientation="horizontal">
 
-</RelativeLayout>
+	    <ImageView
+	        android:id="@+id/profile_image_imageView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/purple_profile" />
+	        
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical" >
+	        
+	        <TextView
+	            android:id="@+id/profile_name_textView"
+	            android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:textAppearance="?android:attr/textAppearanceMedium" 
+        		android:text="Isabel"
+        		/>
+	        	
+	        <TextView 
+	            android:id="@+id/profile_total_points_textView"
+	           	android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:textAppearance="?android:attr/textAppearanceLarge"
+        		android:text="54 points" 
+	            />
+	                        
+	    </LinearLayout>    
+     
+    </LinearLayout>      
+        
+    <TextView
+        android:id="@+id/profile_points_this_week_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dip"
+        android:text="Points This Week: 15"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <TextView
+        android:id="@+id/profile_achievements_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Achievements"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+       
+    <ListView android:id="@+id/profile_achievements_list" 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content"
+    	/>
+    
+</LinearLayout>
