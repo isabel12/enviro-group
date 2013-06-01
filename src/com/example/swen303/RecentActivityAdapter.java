@@ -1,9 +1,11 @@
 package com.example.swen303;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import com.example.swen303.domainObjects.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +34,7 @@ public class RecentActivityAdapter extends ArrayAdapter<Activity> {
     @Override
     public int getCount() {
     	// not sure why this has to be + 1?
-        return super.getCount() + 1;
+        return super.getCount();
     }
     
     /**
@@ -40,7 +42,7 @@ public class RecentActivityAdapter extends ArrayAdapter<Activity> {
      */
     @Override
     public Activity getItem(int position) {
-        if (position == (getCount() - 1))
+        if (position == (getCount()))
             return null;
         
         return super.getItem(position);
@@ -60,6 +62,7 @@ public class RecentActivityAdapter extends ArrayAdapter<Activity> {
 		// get all the widgets to set
 		ImageView icon = (ImageView)view.findViewById(R.id.recent_activity_icon);
 		TextView dateText = (TextView)view.findViewById(R.id.recent_activity_date);
+		TextView timeText = (TextView)view.findViewById(R.id.recent_activity_time);
 		TextView description = (TextView)view.findViewById(R.id.recent_activity_description);
 		TextView points = (TextView)view.findViewById(R.id.recent_activity_points);
 		
@@ -71,10 +74,41 @@ public class RecentActivityAdapter extends ArrayAdapter<Activity> {
 		
 		// set the values
 		icon.setImageDrawable(parent.getResources().getDrawable(activity.GetIconId()));
-		Date date = activity.getDate();
-		dateText.setText(String.format("%d/%d/%d", date.getDay(), date.getMonth(), date.getYear()));
+		
+		// date
+		//-------
+		
+		// get today and yesterday
+		Date date = activity.getDate();	
+		Date today = new Date(new Date().getTime() + 43200000);
+		long ticks = today.getTime();
+		Date yesterday = new Date(ticks - 86400000);
+		
+		// make the date string
+		String dateString;
+		if (date.getDay()==today.getDay() && date.getMonth() == today.getMonth() && date.getYear()==today.getYear()){
+			dateString = "Today     ";
+		} else if (date.getDay()==yesterday.getDay() && date.getMonth() == yesterday.getMonth() && date.getYear()==yesterday.getYear()){
+			dateString = "Yesterday";
+		} else {
+			
+	        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			dateString = format.format(date);	
+		}
+		
+		// set the date string
+		dateText.setText(dateString);
 		description.setText(activity.GetMessage());
-		points.setText(activity.GetPoints() + " points");
+		
+		// time
+		//------
+        SimpleDateFormat format = new SimpleDateFormat("h.mm a");
+		String timeString = format.format(date);
+		timeText.setText(timeString);
+		
+		int numPoints = activity.GetPoints();
+		String pointsString = numPoints == 1 ? " point  " : " points";
+		points.setText(numPoints + pointsString);
 		
 		return view;
 	}

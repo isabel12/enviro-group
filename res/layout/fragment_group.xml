@@ -12,9 +12,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dip"
-        android:text="Points This Week:"
+        android:text="Points This Week"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <View
+	    android:layout_width="fill_parent"
+	    android:layout_height="1dp"
+	    android:layout_marginBottom="10dip"
+	    android:background="@android:color/darker_gray"/>
     
     
     <LinearLayout android:id="@+id/current_points_button_list"
@@ -31,8 +36,21 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Record New Task" 
+        android:layout_marginBottom="10dip"
         android:onClick="recordNewTask"
         android:background="@drawable/custom_button"/>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recent Activity"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <View
+	    android:layout_width="fill_parent"
+	    android:layout_height="1dp"
+	    android:background="@android:color/darker_gray"/>
+    
     
     <ListView android:id="@+id/recent_activity_list" 
     	android:layout_width="wrap_content" 

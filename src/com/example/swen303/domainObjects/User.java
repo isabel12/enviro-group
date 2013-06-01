@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.swen303.ApplicationState;
 import com.example.swen303.R;
 
 public class User {
@@ -63,6 +64,7 @@ public class User {
 		this.tasksAchieved.add(task);
 		this.totalPoints += points;
 		this.pointsThisWeek += points;	
+		ApplicationState.recentActivities.add((Activity)task);
 	}
 
 	public List<Acheivement> getAcheivementsAchieved() {

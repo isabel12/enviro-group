@@ -21,6 +21,8 @@ import java.util.Collections;
 import java.util.List;
 import com.example.swen303.domainObjects.Activity;
 import com.example.swen303.domainObjects.User;
+
+import android.R.attr;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class HomeActivity extends android.app.Activity {
     
@@ -61,6 +64,11 @@ public class HomeActivity extends android.app.Activity {
         // set adapter for the list of recent activities
         adapter = new RecentActivityAdapter(this, new ArrayList<Activity>());        
         ListView listView = (ListView)findViewById(R.id.recent_activity_list);
+        
+//        TextView header = new TextView(this);
+//        header.setText("Recent Activity");
+//        header.setTextAppearance(this, attr.textAppearanceLarge);
+//        listView.addHeaderView(header);
         listView.setAdapter(adapter);
     }
 

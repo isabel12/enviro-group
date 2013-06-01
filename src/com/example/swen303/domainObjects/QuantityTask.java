@@ -61,8 +61,20 @@ public class QuantityTask extends Activity implements IQuantityActivity, ITask {
 	 * Returns the message to display information about what the quantity field represents.
 	 * @return
 	 */
-	public String GetQuantityMessage(){
+	public String GetQuantityMessage(){	
 		return quantityMessage;
+	}
+	
+	/**
+	 * Returns the message to display information about what the quantity field represents.
+	 * @return
+	 */
+	@Override
+	public String GetMessage(){
+		
+		String messageToReturn = super.GetMessage().replace("{0}", quantity + "");
+		
+		return messageToReturn;
 	}
 
 	@Override

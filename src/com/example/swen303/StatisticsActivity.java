@@ -113,7 +113,7 @@ public class StatisticsActivity extends FragmentActivity implements
 	
 	public void changeToWeekView(){	
 		// get title
-		TextView title = (TextView)findViewById(R.id.progress_graph_title);
+		TextView title = (TextView)findViewById(R.id.total_graph_title);
 		title.setText("Weekly points");
 			
 		// get image

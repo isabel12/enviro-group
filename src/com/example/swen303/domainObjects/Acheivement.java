@@ -9,7 +9,7 @@ public class Acheivement extends Activity implements ISimpleActivity {
 	public Acheivement(String activity_name, int icon_id, String message_base, int points, String name, Date date) {
 		super(activity_name, icon_id, message_base);
 		
-		super.username = username;
+		super.username = name;
 		super.date = date;
 		this.points = points;
 	}

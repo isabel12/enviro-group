@@ -10,6 +10,7 @@ import com.example.swen303.domainObjects.Acheivement;
 import com.example.swen303.domainObjects.Activity;
 import com.example.swen303.domainObjects.Colour;
 import com.example.swen303.domainObjects.IQuantityActivity;
+import com.example.swen303.domainObjects.ISimpleActivity;
 import com.example.swen303.domainObjects.QuantityTask;
 import com.example.swen303.domainObjects.SingleTask;
 import com.example.swen303.domainObjects.ITask;
@@ -39,32 +40,107 @@ public class ApplicationState {
 		ApplicationState.availableTasks.put("Taking the Stairs", new SingleTask("Taking the Stairs", R.drawable.settings, " took the stairs instead of using the lift.", 1));
     	
 		
-    	// my profile	
+    	// user profiles
     	User me = new User("Isabel", Colour.Purple);
-    	me.setPointsThisWeek(12);
-    	me.addToTotalPoints(34);
     	ApplicationState.users.put(me.getName(), me);
     	
-    	// add a task
-    	Activity task = ((IQuantityActivity)ApplicationState.availableTasks.get("Recycling")).GetInstance("Isabel", new Date(2013, 5, 25, 18, 32), 3);
-    	me.addTask(task.getDate(), (ITask)task);
-    	ApplicationState.recentActivities.add(task);
-    	
-    	// add an achievement
-    	Activity acheivement = new Acheivement("Recycling", R.drawable.settings, " recycled their first items.", 1, "Isabel", new Date(2013, 5, 25, 18, 32));
-    	me.addAcheivement(acheivement.getDate(), (Acheivement)acheivement);
-    	ApplicationState.recentActivities.add(acheivement);    	    	
-    	
-    	
     	User tim = new User("Tim", Colour.Orange);
-    	tim.setPointsThisWeek(9);
-    	tim.addToTotalPoints(36);
     	ApplicationState.users.put(tim.getName(), tim);
     	
     	User kate = new User("Kate", Colour.Blue);
-    	kate.setPointsThisWeek(14);
-    	kate.addToTotalPoints(27);
     	ApplicationState.users.put(kate.getName(), kate);
+    	
+    	
+    	// get some cool dates
+    	long day = 86400000;
+    	long hour = 3600000;
+    	long minute = 60000;
+    	
+    	long currentDate = new Date().getTime() + 12*hour;
+    	
+    	Date fiveDaysAgo = new Date(currentDate - 5*day + 2*hour);
+    	Date fiveDaysAgo2 = new Date(currentDate - 5*day + 2*hour + 30*minute);
+    	Date fiveDaysAgo3 = new Date(currentDate - 5*day + 6*hour - 3*minute);
+    	
+    	Date fourDaysAgo = new Date(currentDate - 4*day + 2*hour + 6*minute);
+    	Date fourDaysAgo2 = new Date(currentDate - 4*day + 4*hour + 36*minute);
+    	Date fourDaysAgo3 = new Date(currentDate - 4*day + 6*hour - 3*minute);
+    	
+    	Date threeDaysAgo = new Date(currentDate - 3*day + 1*hour + 20*minute);
+    	Date threeDaysAgo2 = new Date(currentDate - 3*day + 2*hour + 30*minute);
+    	Date threeDaysAgo3 = new Date(currentDate - 3*day + 6*hour - 45*minute);
+    	
+    	Date twoDaysAgo = new Date(currentDate - 2*day + 4*hour + 8*minute);
+    	Date twoDaysAgo2 = new Date(currentDate - 3*day + 5*hour + 30*minute);
+    	Date twoDaysAgo3 = new Date(currentDate - 3*day + 6*hour - 3*minute);
+    	
+    	Date oneDayAgo = new Date(currentDate - 1*day - 4*hour + 32*minute);
+    	Date oneDayAgo2 = new Date(currentDate - 1*day + 6*hour + 35*minute);
+    	Date oneDayAgo3 = new Date(currentDate - 1*day + 7*hour - 12*minute);
+    	
+    	
+    	// 5 days ago
+    	//-----------
+    	Activity task = ((IQuantityActivity)ApplicationState.availableTasks.get("Recycling")).GetInstance("Isabel", fiveDaysAgo, 3);
+    	me.addTask(task.getDate(), (ITask)task);
+
+    	// add an achievement
+    	Activity acheivement = new Acheivement("Recycling", R.drawable.settings, " recycled their first items.", 1, "Isabel", fiveDaysAgo);
+    	me.addAcheivement(acheivement.getDate(), (Acheivement)acheivement);
+    	ApplicationState.recentActivities.add(acheivement);    	
+    	
+    	
+    	task = ((ISimpleActivity)ApplicationState.availableTasks.get("5 Min Shower")).GetInstance("Kate", fiveDaysAgo2);
+    	kate.addTask(task.getDate(), (ITask)task);
+    	
+    	task = ((ISimpleActivity)ApplicationState.availableTasks.get("Catching Bus")).GetInstance("Tim", fiveDaysAgo3);
+    	tim.addTask(task.getDate(), (ITask)task);
+    	
+    	
+    	// 4 days ago
+    	//-----------
+    	
+    	task = ((ISimpleActivity)ApplicationState.availableTasks.get("Walking")).GetInstance("Isabel", fourDaysAgo);
+    	me.addTask(task.getDate(), (ITask)task);
+    	
+    	task = ((ISimpleActivity)ApplicationState.availableTasks.get("Taking the Stairs")).GetInstance("Tim", fourDaysAgo2);
+    	tim.addTask(task.getDate(), (ITask)task);
+    	
+    	task = ((IQuantityActivity)ApplicationState.availableTasks.get("Recycling")).GetInstance("Tim", fourDaysAgo3, 6);
+    	tim.addTask(task.getDate(), (ITask)task);
+    	
+    	
+    	// 3 days ago
+    	//-----------
+    	
+    	task = ((ISimpleActivity)ApplicationState.availableTasks.get("Walking")).GetInstance("Isabel", threeDaysAgo);
+    	me.addTask(task.getDate(), (ITask)task);
+    	
+    	task = ((ISimpleActivity)ApplicationState.availableTasks.get("Walking")).GetInstance("Kate", threeDaysAgo2);
+    	kate.addTask(task.getDate(), (ITask)task);
+    	
+    	
+    	
+    	// 2 days ago
+    	//-----------
+    	task = ((ISimpleActivity)ApplicationState.availableTasks.get("Walking")).GetInstance("Isabel", twoDaysAgo);
+    	me.addTask(task.getDate(), (ITask)task);
+    	
+    	task = ((ISimpleActivity)ApplicationState.availableTasks.get("5 Min Shower")).GetInstance("Kate", twoDaysAgo2);
+    	kate.addTask(task.getDate(), (ITask)task);
+    	
+    	task = ((ISimpleActivity)ApplicationState.availableTasks.get("Walking")).GetInstance("Kate", twoDaysAgo3);
+    	kate.addTask(task.getDate(), (ITask)task);
+    	
+    	// 1 days ago
+    	//-----------
+   	
+    	task = ((ISimpleActivity)ApplicationState.availableTasks.get("Walking")).GetInstance("Isabel", oneDayAgo);
+    	me.addTask(task.getDate(), (ITask)task);
+    	
+    	task = ((IQuantityActivity)ApplicationState.availableTasks.get("Recycling")).GetInstance("Tim", oneDayAgo, 4);
+    	tim.addTask(task.getDate(), (ITask)task);
+
     	    	
     }
 	

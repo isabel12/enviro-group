@@ -52,6 +52,7 @@ public class ProfileActivity extends android.app.Activity {
 	private void setupActionBar() {
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setTitle("Profiles");
 
 	}
 

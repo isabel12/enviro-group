@@ -154,12 +154,18 @@ public class RecordActivity extends Activity {
 		int quantity = 0;
 		String username = ApplicationState.username;
 		Date date = new Date();
+		long plus12hours = date.getTime() + 43200000;
+		date = new Date(plus12hours);
 		
 		// if quantity task
 		if(task instanceof QuantityTask){
 			// get the quantity
 			EditText quantityEditText = (EditText)findViewById(R.id.task_quantity_edit_text);
-			String quantityText = quantityEditText.getText().toString();		
+			String quantityText = quantityEditText.getText().toString().trim();
+			if(quantityText.equals("")){
+				quantityEditText.setError("You must enter a quantity");
+				return;
+			}		
 			try{
 				quantity = Integer.parseInt(quantityText);	
 			} catch(NumberFormatException e){
@@ -183,12 +189,12 @@ public class RecordActivity extends Activity {
 		// add to recentActivities
 		ApplicationState.recentActivities.add((com.example.swen303.domainObjects.Activity) newInstance);
 		
-
+		String pointsString = newInstance.GetPoints() == 1? " point." : " points.";
 		
     	// display a message
     	new AlertDialog.Builder(this)
         .setTitle("Task Recorded")
-        .setMessage("You received " + task.GetPoints() + " points.")
+        .setMessage("You received " + newInstance.GetPoints() + pointsString + "\r\n\r\nYou also unlocked an achievement - \"Walk every day for a week\"!")
         .setPositiveButton("Return to My Group", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
             	NavUtils.navigateUpFromSameTask(RecordActivity.this);

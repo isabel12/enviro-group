@@ -49,12 +49,12 @@ public final class R {
         public static final int week_total=0x7f02000e;
     }
     public static final class id {
-        public static final int action_forgot_password=0x7f09001f;
-        public static final int action_settings=0x7f090020;
+        public static final int action_forgot_password=0x7f090020;
+        public static final int action_settings=0x7f090021;
         public static final int activities_spinner=0x7f090006;
         public static final int button1=0x7f09000e;
         public static final int current_points_button_list=0x7f09000d;
-        public static final int group_settings=0x7f09001e;
+        public static final int group_settings=0x7f09001f;
         public static final int pager=0x7f09000b;
         public static final int profile_achievements_list=0x7f090005;
         public static final int profile_achievements_textView=0x7f090004;
@@ -68,12 +68,13 @@ public final class R {
         public static final int progress_month_button=0x7f090011;
         public static final int progress_week_button=0x7f090010;
         public static final int recent_activity_date=0x7f09001b;
-        public static final int recent_activity_description=0x7f09001c;
+        public static final int recent_activity_description=0x7f09001d;
         public static final int recent_activity_icon=0x7f09001a;
         public static final int recent_activity_list=0x7f09000f;
-        public static final int recent_activity_points=0x7f09001d;
+        public static final int recent_activity_points=0x7f09001e;
+        public static final int recent_activity_time=0x7f09001c;
         public static final int record_task_button=0x7f09000a;
-        public static final int statistics_option=0x7f090021;
+        public static final int statistics_option=0x7f090022;
         public static final int task_points_value_message=0x7f090009;
         public static final int task_quantity_edit_text=0x7f090008;
         public static final int task_quantity_message=0x7f090007;
