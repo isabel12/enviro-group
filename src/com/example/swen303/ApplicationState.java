@@ -34,7 +34,7 @@ public class ApplicationState {
     	
     	// set up available tasks
     	ApplicationState.availableTasks.put("5 Min Shower", new SingleTask("5 Min Shower", R.drawable.tick_icon, " had a five minute shower today.", 3));
-    	ApplicationState.availableTasks.put("Recycling", new QuantityTask("Recycling", R.drawable.tick_icon, " recycled {0} items.", "Number of items recycled", 1)); 
+    	ApplicationState.availableTasks.put("Recycling", new QuantityTask("Recycling", R.drawable.tick_icon, " recycled {0} items.  ", "Number of items recycled", 1)); 
 		ApplicationState.availableTasks.put("Catching Bus", new SingleTask("Catching Bus", R.drawable.tick_icon, " caught the bus instead of driving.", 1));	
 		ApplicationState.availableTasks.put("Walking", new SingleTask("Walking", R.drawable.tick_icon, " walked instead of catching the bus.", 3));	
 		ApplicationState.availableTasks.put("Taking the Stairs", new SingleTask("Taking the Stairs", R.drawable.tick_icon, " took the stairs instead of using the lift.", 1));

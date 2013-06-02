@@ -85,6 +85,10 @@
 	        android:layout_width="0dp"
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="3dp"
+	        android:layout_marginRight="3dp"
+	        android:layout_marginTop="3dp"
+	        android:layout_marginBottom="3dp"
 	        android:text="Week" 
 	        android:onClick="changeToWeekView"
 	        android:background="@drawable/selected_graph_button"/>
@@ -94,6 +98,10 @@
 	        android:layout_width="0dp"
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="3dp"
+	        android:layout_marginRight="3dp"
+	        android:layout_marginTop="3dp"
+	        android:layout_marginBottom="3dp"
 	        android:text="Month" 
 	        android:onClick="changeToMonthView"
 	        android:background="@drawable/unselected_graph_button"/>
@@ -103,6 +111,11 @@
 	        android:layout_width="0dp"
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="3dp"
+	        android:layout_marginRight="3dp"
+	        android:layout_marginTop="3dp"
+	        android:layout_marginBottom="3dp"
+	        
 	        android:text="3 Month" 
 	        android:onClick="changeTo3MonthView"
 	        android:background="@drawable/unselected_graph_button"/>     
