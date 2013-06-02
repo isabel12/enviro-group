@@ -96,13 +96,17 @@ public class ProfileActivity extends android.app.Activity {
 		// update views
 		profileImage.setImageResource(user.getProfilePictureId());
 		username.setText(user.getName());
-		totalPoints.setText(user.getTotalPoints() + " points");
+		totalPoints.setText("Total points: " + user.getTotalPoints());
 		pointsThisWeek.setText("Points this week: " + user.getPointsThisWeek());	
 		
 		// update achievements adapter
 		List<Acheivement> achievements = user.getAcheivementsAchieved();
 		adapter.clear();
 		adapter.addAll(achievements);
+		
+		
+		
+		
 	}
 
 }

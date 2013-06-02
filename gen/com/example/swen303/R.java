@@ -33,31 +33,39 @@ public final class R {
     }
     public static final class drawable {
         public static final int blue_button=0x7f020000;
-        public static final int blue_custom_button=0x7f020001;
-        public static final int blue_profile=0x7f020002;
-        public static final int custom_button=0x7f020003;
+        public static final int blue_button_icon=0x7f020001;
+        public static final int blue_custom_button=0x7f020002;
+        public static final int blue_profile=0x7f020003;
         public static final int green_button=0x7f020004;
         public static final int ic_launcher=0x7f020005;
         public static final int month_3_progress=0x7f020006;
         public static final int month_3_total=0x7f020007;
         public static final int month_progress=0x7f020008;
         public static final int month_total=0x7f020009;
-        public static final int orange_custom_button=0x7f02000a;
-        public static final int orange_profile=0x7f02000b;
-        public static final int pink_button=0x7f02000c;
-        public static final int purple_custom_button=0x7f02000d;
-        public static final int purple_profile=0x7f02000e;
-        public static final int settings=0x7f02000f;
-        public static final int week_progress=0x7f020010;
-        public static final int week_total=0x7f020011;
+        public static final int orange_button_icon=0x7f02000a;
+        public static final int orange_custom_button=0x7f02000b;
+        public static final int orange_profile=0x7f02000c;
+        public static final int pink_button=0x7f02000d;
+        public static final int purple_button_icon=0x7f02000e;
+        public static final int purple_custom_button=0x7f02000f;
+        public static final int purple_profile=0x7f020010;
+        public static final int ribbon_icon=0x7f020011;
+        public static final int selected_graph_button=0x7f020012;
+        public static final int settings=0x7f020013;
+        public static final int stats_icon=0x7f020014;
+        public static final int tick_icon=0x7f020015;
+        public static final int tick_icon_menu=0x7f020016;
+        public static final int undo_icon=0x7f020017;
+        public static final int unselected_graph_button=0x7f020018;
+        public static final int week_progress=0x7f020019;
+        public static final int week_total=0x7f02001a;
     }
     public static final class id {
-        public static final int action_forgot_password=0x7f090023;
-        public static final int action_settings=0x7f090024;
+        public static final int action_forgot_password=0x7f090022;
+        public static final int action_settings=0x7f090023;
         public static final int activities_spinner=0x7f090006;
-        public static final int button1=0x7f090012;
         public static final int current_points_button_list=0x7f09000d;
-        public static final int group_settings=0x7f090022;
+        public static final int group_settings=0x7f090021;
         public static final int isabel_button=0x7f090010;
         public static final int kate_button=0x7f09000e;
         public static final int pager=0x7f09000b;
@@ -67,17 +75,18 @@ public final class R {
         public static final int profile_name_textView=0x7f090001;
         public static final int profile_points_this_week_textView=0x7f090003;
         public static final int profile_total_points_textView=0x7f090002;
-        public static final int progress_graph_image=0x7f090017;
-        public static final int progress_graph_title=0x7f090016;
-        public static final int progress_month_3_button=0x7f090015;
-        public static final int progress_month_button=0x7f090014;
-        public static final int progress_week_button=0x7f090013;
-        public static final int recent_activity_date=0x7f09001e;
-        public static final int recent_activity_description=0x7f090020;
-        public static final int recent_activity_icon=0x7f09001d;
+        public static final int progress_graph_image=0x7f090013;
+        public static final int progress_graph_title=0x7f090012;
+        public static final int progress_month_3_button=0x7f090016;
+        public static final int progress_month_button=0x7f090015;
+        public static final int progress_week_button=0x7f090014;
+        public static final int recent_activity_date=0x7f09001d;
+        public static final int recent_activity_description=0x7f09001f;
+        public static final int recent_activity_icon=0x7f09001c;
         public static final int recent_activity_list=0x7f090011;
-        public static final int recent_activity_points=0x7f090021;
-        public static final int recent_activity_time=0x7f09001f;
+        public static final int recent_activity_points=0x7f090020;
+        public static final int recent_activity_time=0x7f09001e;
+        public static final int record_option=0x7f090024;
         public static final int record_task_button=0x7f09000a;
         public static final int statistics_option=0x7f090025;
         public static final int task_points_value_message=0x7f090009;
@@ -85,11 +94,12 @@ public final class R {
         public static final int task_quantity_message=0x7f090007;
         public static final int textView1=0x7f09000c;
         public static final int tim_button=0x7f09000f;
-        public static final int total_graph_image=0x7f09001c;
-        public static final int total_graph_title=0x7f09001b;
-        public static final int total_month_3_button=0x7f09001a;
-        public static final int total_month_button=0x7f090019;
-        public static final int total_week_button=0x7f090018;
+        public static final int total_graph_image=0x7f090018;
+        public static final int total_graph_title=0x7f090017;
+        public static final int total_month_3_button=0x7f09001b;
+        public static final int total_month_button=0x7f09001a;
+        public static final int total_week_button=0x7f090019;
+        public static final int undo_option=0x7f090026;
     }
     public static final class layout {
         public static final int activity_profile=0x7f030000;
@@ -107,6 +117,7 @@ public final class R {
         public static final int profile=0x7f080002;
         public static final int record=0x7f080003;
         public static final int statistics=0x7f080004;
+        public static final int undo=0x7f080005;
     }
     public static final class string {
         public static final int action_forgot_password=0x7f06000f;

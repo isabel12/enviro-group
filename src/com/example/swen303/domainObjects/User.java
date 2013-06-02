@@ -88,6 +88,23 @@ public class User {
 		this.pointsThisWeek += points;	
 		ApplicationState.recentActivities.add((Activity)acheivement);
 	}
+	
+	public void undoLastTask(boolean andLastAchievement){
+		// remove achievement
+		if(andLastAchievement){
+			Activity achievement = acheivementsAchieved.remove(acheivementsAchieved.size() -1);
+			ApplicationState.recentActivities.remove(ApplicationState.recentActivities.size() - 1);	
+		}	
+		
+		// get the task
+		Activity task = (Activity) tasksAchieved.remove(tasksAchieved.size()-1);
+		
+		// undo it
+		int points = task.GetPoints();
+		this.totalPoints -= points;
+		this.pointsThisWeek -= points;
+		ApplicationState.recentActivities.remove(ApplicationState.recentActivities.size() - 1);
+	}
 
 	public String getName() {
 		return name;

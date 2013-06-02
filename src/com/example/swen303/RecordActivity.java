@@ -36,6 +36,12 @@ public class RecordActivity extends Activity {
 	
 	private ITask task;
 	
+	private Menu menu;
+	
+	private User user;
+	private boolean undoPossible;
+	private boolean receivedAchievement;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,13 +56,14 @@ public class RecordActivity extends Activity {
 	 * Set up the {@link android.app.ActionBar}.
 	 */
 	private void setupActionBar() {
+		getActionBar().setTitle("Record Task");
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.record, menu);
+		this.menu = menu;
 		return true;
 	}
 
@@ -67,7 +74,12 @@ public class RecordActivity extends Activity {
 	    case android.R.id.home:
 	        NavUtils.navigateUpFromSameTask(this);
 	        return true;
+	    case R.id.undo_option:
+	    	user.undoLastTask(receivedAchievement);	    	
+	    	menu.removeItem(R.id.undo_option);   	
+	    	new AlertDialog.Builder(this).setMessage("The last task you recorded was successfully undone").show(); 		
 	    }
+	    
 	    return super.onOptionsItemSelected(item);
 	}
 	
@@ -184,11 +196,14 @@ public class RecordActivity extends Activity {
 		
 		
 		// add to user profile
-		User user = ApplicationState.users.get(username);
+		user = ApplicationState.users.get(username);
 		Acheivement achievement = user.addTask(date, newInstance);
-					
-		String pointsString = newInstance.GetPoints() == 1? " point." : " points.";
 		
+		undoPossible = true;
+		receivedAchievement = achievement != null;	
+		getMenuInflater().inflate(R.menu.undo, this.menu);
+					
+		String pointsString = newInstance.GetPoints() == 1? " point." : " points.";	
 		String acheivementString = achievement == null? "" : String.format("\r\n\r\nYou also unlocked an achievement - \"%s\"!", achievement.GetName());			
 				
 				

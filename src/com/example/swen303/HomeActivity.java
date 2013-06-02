@@ -24,6 +24,7 @@ import com.example.swen303.domainObjects.User;
 
 import android.R.attr;
 import android.app.ActionBar;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -42,7 +43,7 @@ public class HomeActivity extends android.app.Activity {
        
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);   
+        super.onCreate(savedInstanceState);          
         
         // initialise state
         if(ApplicationState.recentActivities.size() == 0){
@@ -78,6 +79,7 @@ public class HomeActivity extends android.app.Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.record, menu);
 		getMenuInflater().inflate(R.menu.statistics, menu);
 		return true;
 	}
@@ -92,6 +94,11 @@ public class HomeActivity extends android.app.Activity {
 			startActivity(intent);
 			return true;
 			
+		case R.id.record_option:
+			intent = new Intent(this, RecordActivity.class);
+			startActivity(intent);
+			return true;
+			
 		default:
 			return super.onOptionsItemSelected(item);
 		}		
@@ -101,7 +108,7 @@ public class HomeActivity extends android.app.Activity {
 	public void onResume(){
 		super.onResume();
 		insertPointsButtons();
-		insertRecentActivities();	
+		insertRecentActivities();
 	}
      
     /**
@@ -154,7 +161,7 @@ public class HomeActivity extends android.app.Activity {
 		}
 		
 		// start profile activity
-		Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+		Intent intent = new Intent(this, ProfileActivity.class);
 		intent.putExtra(ProfileActivity.USERNAME, username);
 		startActivity(intent);		
 	}

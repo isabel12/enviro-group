@@ -21,10 +21,10 @@ public class AchievementHandler {
 		possibleAchievements = new HashMap<String, Acheivement>();
 		
 		// first item recycled
-		possibleAchievements.put("Recycled First Items", new Acheivement("Recycled First Items", R.drawable.settings, " recycled their first items!", 0, null, null));
+		possibleAchievements.put("Recycled First Items", new Acheivement("Recycled First Items", R.drawable.ribbon_icon, " recycled their first items!", 0, null, null));
 		
 		// walked all week
-		possibleAchievements.put("Walked All Week", new Acheivement("Walked All Week", R.drawable.settings, " walked every day this week!", 0, null, null));
+		possibleAchievements.put("Walked All Week", new Acheivement("Walked All Week", R.drawable.ribbon_icon, " walked every day this week!", 0, null, null));
 			
 	}
 	

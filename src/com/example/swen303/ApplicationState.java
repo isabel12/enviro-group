@@ -33,23 +33,24 @@ public class ApplicationState {
     	ApplicationState.username = "Isabel";
     	
     	// set up available tasks
-    	ApplicationState.availableTasks.put("5 Min Shower", new SingleTask("5 Min Shower", R.drawable.settings, " had a five minute shower today.", 3));
-    	ApplicationState.availableTasks.put("Recycling", new QuantityTask("Recycling", R.drawable.settings, " recycled {0} items.", "Number of items recycled", 1)); 
-		ApplicationState.availableTasks.put("Catching Bus", new SingleTask("Catching Bus", R.drawable.settings, " caught the bus instead of driving.", 1));	
-		ApplicationState.availableTasks.put("Walking", new SingleTask("Walking", R.drawable.settings, " walked instead of catching the bus.", 3));	
-		ApplicationState.availableTasks.put("Taking the Stairs", new SingleTask("Taking the Stairs", R.drawable.settings, " took the stairs instead of using the lift.", 1));
+    	ApplicationState.availableTasks.put("5 Min Shower", new SingleTask("5 Min Shower", R.drawable.tick_icon, " had a five minute shower today.", 3));
+    	ApplicationState.availableTasks.put("Recycling", new QuantityTask("Recycling", R.drawable.tick_icon, " recycled {0} items.", "Number of items recycled", 1)); 
+		ApplicationState.availableTasks.put("Catching Bus", new SingleTask("Catching Bus", R.drawable.tick_icon, " caught the bus instead of driving.", 1));	
+		ApplicationState.availableTasks.put("Walking", new SingleTask("Walking", R.drawable.tick_icon, " walked instead of catching the bus.", 3));	
+		ApplicationState.availableTasks.put("Taking the Stairs", new SingleTask("Taking the Stairs", R.drawable.tick_icon, " took the stairs instead of using the lift.", 1));
     	
 		
     	// user profiles
     	User me = new User("Isabel", Colour.Purple);
     	ApplicationState.users.put(me.getName(), me);
+    	me.addToTotalPoints(11);
     	
     	User tim = new User("Tim", Colour.Orange);
     	ApplicationState.users.put(tim.getName(), tim);
     	
     	User kate = new User("Kate", Colour.Blue);
     	ApplicationState.users.put(kate.getName(), kate);
-    	
+    	kate.addToTotalPoints(8);
     	
     	// get some cool dates
     	long day = 86400000;
