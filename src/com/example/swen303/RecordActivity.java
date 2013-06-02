@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import com.example.swen303.domainObjects.Acheivement;
 import com.example.swen303.domainObjects.ISimpleActivity;
 import com.example.swen303.domainObjects.ITask;
 import com.example.swen303.domainObjects.QuantityTask;
@@ -184,17 +185,17 @@ public class RecordActivity extends Activity {
 		
 		// add to user profile
 		User user = ApplicationState.users.get(username);
-		user.addTask(date, newInstance);
-			
-		// add to recentActivities
-		ApplicationState.recentActivities.add((com.example.swen303.domainObjects.Activity) newInstance);
-		
+		Acheivement achievement = user.addTask(date, newInstance);
+					
 		String pointsString = newInstance.GetPoints() == 1? " point." : " points.";
 		
+		String acheivementString = achievement == null? "" : String.format("\r\n\r\nYou also unlocked an achievement - \"%s\"!", achievement.GetName());			
+				
+				
     	// display a message
     	new AlertDialog.Builder(this)
         .setTitle("Task Recorded")
-        .setMessage("You received " + newInstance.GetPoints() + pointsString + "\r\n\r\nYou also unlocked an achievement - \"Walk every day for a week\"!")
+        .setMessage("You received " + newInstance.GetPoints() + pointsString + acheivementString)
         .setPositiveButton("Return to My Group", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
             	NavUtils.navigateUpFromSameTask(RecordActivity.this);

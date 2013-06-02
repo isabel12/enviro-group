@@ -21,7 +21,7 @@ public class Acheivement extends Activity implements ISimpleActivity {
 
 	@Override
 	public Activity GetInstance(String username, Date date) {
-		if(username != null)
+		if(super.username != null)
 			throw new IllegalArgumentException("Cannot get an instance from an instance");
 			
 		// make new instance

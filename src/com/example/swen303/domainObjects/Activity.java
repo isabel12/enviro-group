@@ -49,5 +49,42 @@ public abstract class Activity {
 
 
 	public abstract int GetPoints();
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((activity_name == null) ? 0 : activity_name.hashCode());
+		return result;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Activity))
+			return false;
+		Activity other = (Activity) obj;
+		if (activity_name == null) {
+			if (other.activity_name != null)
+				return false;
+		} else if (!activity_name.equals(other.activity_name))
+			return false;
+		return true;
+	}
+	
+	
+	
 	
 }

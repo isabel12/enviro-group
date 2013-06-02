@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.swen303.AchievementHandler;
 import com.example.swen303.ApplicationState;
 import com.example.swen303.R;
 
@@ -58,13 +59,21 @@ public class User {
 	 * @param date
 	 * @param task
 	 */
-	public void addTask(Date date, ITask task) {
+	public Acheivement addTask(Date date, ITask task) {
 		int points = ((Activity)task).GetPoints();
 		
 		this.tasksAchieved.add(task);
 		this.totalPoints += points;
 		this.pointsThisWeek += points;	
 		ApplicationState.recentActivities.add((Activity)task);
+		
+		Acheivement achievement = AchievementHandler.checkForAchievements(this, date);
+		if (achievement != null){
+			addAcheivement(date, achievement);
+			return achievement;
+		}
+		
+		return null;
 	}
 
 	public List<Acheivement> getAcheivementsAchieved() {
@@ -72,7 +81,12 @@ public class User {
 	}
 
 	public void addAcheivement(Date date, Acheivement acheivement) {
+		int points = ((Activity)acheivement).GetPoints();
+		
 		this.acheivementsAchieved.add(acheivement);
+		this.totalPoints += points;
+		this.pointsThisWeek += points;	
+		ApplicationState.recentActivities.add((Activity)acheivement);
 	}
 
 	public String getName() {

@@ -46,7 +46,9 @@ public class HomeActivity extends android.app.Activity {
         
         // initialise state
         if(ApplicationState.recentActivities.size() == 0){
+        	AchievementHandler.initialise();
         	ApplicationState.setupProfiles();
+        	
         }
         
         // Set up the action bar.
@@ -117,43 +119,49 @@ public class HomeActivity extends android.app.Activity {
 	 */
 	private void insertPointsButtons(){
 		// get the layout
-		LinearLayout layout = (LinearLayout)findViewById(R.id.current_points_button_list);
+		Button isabelButton = (Button)findViewById(R.id.isabel_button);
+		Button kateButton = (Button)findViewById(R.id.kate_button);
+		Button timButton = (Button)findViewById(R.id.tim_button);
 			
-		// remove all the buttons
-		layout.removeAllViews();
-			
-		// make new buttons
-		for (User user: ApplicationState.users.values()){
-			Button b = new Button(this);
-			b.setText(user.getName() + " : " + user.getPointsThisWeek());
-			b.setId(user.getId());
-			layout.addView(b);
-			b.setOnClickListener(new OnClickListener(){
-
-				@Override
-				public void onClick(View button) {
-					// get user id
-					int id = button.getId();
-					
-					// find user
-					User user = null;
-					for (User u : ApplicationState.users.values()){
-						if(u.getId() == id){
-							user = u;
-							break;
-						}	
-					}
-					
-					// start profile activity
-					Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
-					intent.putExtra(ProfileActivity.USERNAME, user.getName());
-					startActivity(intent);		
-				}	
-			});			
-		}	
 		
-		layout.invalidate();
+		User isabel = ApplicationState.users.get("Isabel");
+		isabelButton.setText(isabel.getPointsThisWeek() + "");
+		
+		User kate = ApplicationState.users.get("Kate");
+		kateButton.setText(kate.getPointsThisWeek() + "");
+		
+		User tim = ApplicationState.users.get("Tim");
+		timButton.setText(tim.getPointsThisWeek() + "");	
 	}
+	
+	
+	public void goToProfile(View button){
+		int id = button.getId();
+			
+		String username = null;
+		switch(id){
+			case R.id.isabel_button:
+				username = "Isabel";
+				break;
+			case R.id.kate_button:
+				username = "Kate";
+				break;
+			case R.id.tim_button:
+				username = "Tim";
+				break;
+			default:
+				return;
+		}
+		
+		// start profile activity
+		Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+		intent.putExtra(ProfileActivity.USERNAME, username);
+		startActivity(intent);		
+	}
+	
+	
+	
+	
 	
 	/**
 	 * Refreshes the recent activities list

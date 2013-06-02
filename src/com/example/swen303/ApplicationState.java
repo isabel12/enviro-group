@@ -82,13 +82,7 @@ public class ApplicationState {
     	// 5 days ago
     	//-----------
     	Activity task = ((IQuantityActivity)ApplicationState.availableTasks.get("Recycling")).GetInstance("Isabel", fiveDaysAgo, 3);
-    	me.addTask(task.getDate(), (ITask)task);
-
-    	// add an achievement
-    	Activity acheivement = new Acheivement("Recycling", R.drawable.settings, " recycled their first items.", 1, "Isabel", fiveDaysAgo);
-    	me.addAcheivement(acheivement.getDate(), (Acheivement)acheivement);
-    	ApplicationState.recentActivities.add(acheivement);    	
-    	
+    	me.addTask(task.getDate(), (ITask)task);   	
     	
     	task = ((ISimpleActivity)ApplicationState.availableTasks.get("5 Min Shower")).GetInstance("Kate", fiveDaysAgo2);
     	kate.addTask(task.getDate(), (ITask)task);

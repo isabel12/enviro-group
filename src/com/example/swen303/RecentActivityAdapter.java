@@ -92,7 +92,7 @@ public class RecentActivityAdapter extends ArrayAdapter<Activity> {
 			dateString = "Yesterday";
 		} else {
 			
-	        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+	        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
 			dateString = format.format(date);	
 		}
 		
@@ -108,7 +108,9 @@ public class RecentActivityAdapter extends ArrayAdapter<Activity> {
 		
 		int numPoints = activity.GetPoints();
 		String pointsString = numPoints == 1 ? " point  " : " points";
-		points.setText(numPoints + pointsString);
+		pointsString = numPoints == 0 ? "        " : numPoints + pointsString;
+		
+		points.setText(pointsString);
 		
 		return view;
 	}
